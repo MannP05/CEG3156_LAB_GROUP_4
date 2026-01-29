@@ -16,7 +16,7 @@ use ieee.numeric_std.ALL;
 
 ENTITY nbit_register IS 
     generic ( 
-                BITS : integer := 4
+                BITS : integer := 8
             );
     PORT (
              in_val : IN STD_LOGIC_VECTOR(BITS - 1 DOWNTO 0);

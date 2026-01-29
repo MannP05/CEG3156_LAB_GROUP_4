@@ -1,0 +1,25 @@
+v 4
+file . "./srlatch_test.vhdl" "fedb29a09cac272ee9a528f1eb8899ad30aa727b" "20260129203106.001":
+  entity latch_sim at 1( 0) + 0 on 25;
+  architecture sim of latch_sim at 8( 123) + 0 on 26;
+file . "./srlatch.vhdl" "cd9e9b2953965eb3489ba919179f3d642e951a2d" "20260129203105.990":
+  entity srlatch at 28( 1658) + 0 on 23;
+  architecture rtl of srlatch at 37( 1817) + 0 on 24;
+file . "./sr_latch.vhdl" "8bdba08f94eb3a2328b4acd2da931e0adb2c548b" "20260129203105.969":
+  entity latch at 1( 0) + 0 on 21;
+  architecture rtl of latch at 14( 216) + 0 on 22;
+file . "./rshift_byte.vhdl" "e1b28a644214c688adeadefa7fb31dab3a1d535a" "20260129203105.952":
+  entity rshift_byte at 12( 612) + 0 on 19;
+  architecture rtl of rshift_byte at 23( 883) + 0 on 20;
+file . "./onebitcomparator.vhdl" "455e366807e4294e64e1c97d133ed4fb0f98d3f9" "20260129203105.909":
+  entity onebitcomparator at 28( 1689) + 0 on 17;
+  architecture rtl of onebitcomparator at 38( 1909) + 0 on 18;
+file . "./nbit_register.vhdl" "4a645d90eccf0c7f4ecc02f4f9fa71705725f238" "20260129203105.842":
+  entity nbit_register at 13( 661) + 0 on 15;
+  architecture rtl of nbit_register at 30( 1123) + 0 on 16;
+file . "./nbit_comparator.vhdl" "f7578f5c5d20709c7ff3ca9a8fd3bb9e2ee13079" "20260129203105.816":
+  entity nbit_comparator at 1( 0) + 0 on 13;
+  architecture rtl of nbit_comparator at 21( 624) + 0 on 14;
+file . "./counter.vhdl" "ee955633c22ca6d18ecbeeeabe02ca7a2f6289b2" "20260129203105.808":
+  entity counter at 1( 0) + 0 on 11;
+  architecture rtl of counter at 20( 499) + 0 on 12;
