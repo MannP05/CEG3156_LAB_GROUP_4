@@ -1,24 +1,45 @@
-
 # GHDL Docs
 # https://ghdl.github.io/ghdl/index.html
 
-# List of all files in the project
-DEPS = ./*.vhdl
-# Entrypoint entity, which is what gets run
-E_ENTITY = latch_sim
+# List of all files in DEPENDENCY ORDER (Bottom-Up)
+# 1. Base components (Adders, FFs, Mux parts)
+# 2. Middle components (Registers, ALUs)
+# 3. Top Level components (Control, fpAdd)
+# 4. Testbench
+DEPS = \
+	oneBitAdder.vhd \
+	enARdFF_2.vhd \
+	quad_n_mux_selector.vhdl \
+	onebitcomparator.vhdl \
+	mux_2x1.vhdl \
+	mux_2x1_16bit.vhdl \
+	ripple_adder.vhdl \
+	nbit_register.vhdl \
+	bidirectional_shifter.vhdl \
+	smallALU.vhdl \
+	bigALU.vhdl \
+	controlUnit.vhdl \
+	fpAdd.vhdl \
+	fpAdd_sim.vhdl
+
+# Entrypoint entity
+E_ENTITY = fpAdd_sim
 # Compiler path
 GHDL = ghdl
-# Compiler flags
-C_FLAGS = 
-# Wave file (open with something like gtkwave)
+# Compiler flags (using 2008 standard handles some syntax better)
+C_FLAGS = --std=08
+# Wave file
 WAVE_F = wave.vcd
-# Addotional runtime lags
-R_FLAGS = 
 
 default:
-	@$(GHDL) -a $(C_FLAGS) $(DEPS) # Analyzing the files
-	@$(GHDL) -e $(E_ENTITY)  # elaborate the entrypoint entity
-	@$(GHDL) -r $(E_ENTITY) --stop-time=3us --vcd=$(WAVE_F) $(R_FLAGS) # run the entity
+	@echo "--- cleaning old build artifacts ---"
+	@rm -f work-obj93.cf
+	@echo "--- analyzing files ---"
+	@$(GHDL) -a $(C_FLAGS) $(DEPS) 
+	@echo "--- elaborating ---"
+	@$(GHDL) -e $(C_FLAGS) $(E_ENTITY)
+	@echo "--- running simulation ---"
+	@$(GHDL) -r $(C_FLAGS) $(E_ENTITY) --stop-time=3us --vcd=$(WAVE_F)
 
 clean:
 	@rm -f $(WAVE_F)
