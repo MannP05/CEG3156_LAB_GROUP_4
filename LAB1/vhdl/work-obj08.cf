@@ -1,43 +1,52 @@
 v 4
-file . "fpAdd_sim.vhdl" "4be3965621a681e134b01956f7a065a5f7d7f06e" "20260201203055.114":
-  entity fpadd_sim at 1( 0) + 0 on 149;
-  architecture behavior of fpadd_sim at 8( 113) + 0 on 150;
-file . "fpAdd.vhdl" "7b19d4ecc8f419acbcbc00c1854b6a34a6406dfa" "20260201203055.096":
-  entity fpadd at 1( 0) + 0 on 147;
-  architecture structural of fpadd at 21( 667) + 0 on 148;
-file . "controlUnit.vhdl" "fa024b51f3df48ea40f0d5491ded22961d042a86" "20260201203055.044":
-  entity controlunit at 1( 0) + 0 on 145;
-  architecture structural of controlunit at 13( 284) + 0 on 146;
-file . "bigALU.vhdl" "3dd2125deafa5776f7c108a1f7b49af6ba2b6026" "20260201203055.026":
-  entity bigalu at 7( 291) + 0 on 143;
-  architecture structural of bigalu at 29( 844) + 0 on 144;
-file . "smallALU.vhdl" "7d0b83ef9123a3e1af095c0a61a83a6b1c10ec5b" "20260201203055.009":
-  entity smallalu at 1( 0) + 0 on 141;
-  architecture structural of smallalu at 16( 400) + 0 on 142;
-file . "bidirectional_shifter.vhdl" "ace9b2c07a501d43f6337ca889b2c7e06894c09a" "20260201203054.992":
-  entity bidirectional_shifter at 8( 424) + 0 on 139;
-  architecture structural of bidirectional_shifter at 20( 776) + 0 on 140;
-file . "nbit_register.vhdl" "4a645d90eccf0c7f4ecc02f4f9fa71705725f238" "20260201203054.974":
-  entity nbit_register at 13( 661) + 0 on 137;
-  architecture rtl of nbit_register at 30( 1123) + 0 on 138;
-file . "ripple_adder.vhdl" "cf920f0a6e9f40d82ac3e5be75131c0de8167ca0" "20260201203054.924":
-  entity ripple_adder at 1( 0) + 0 on 135;
-  architecture rtl of ripple_adder at 20( 521) + 0 on 136;
-file . "mux_2x1_16bit.vhdl" "a367fbc217d9407e5a8387358746553623b5092c" "20260201203054.905":
-  entity mux_2x1_16bit at 1( 0) + 0 on 133;
-  architecture structural of mux_2x1_16bit at 12( 262) + 0 on 134;
-file . "mux_2x1.vhdl" "29df43a44d01aee193da00d53fae13bd9e4eb0e1" "20260201203054.888":
-  entity mux_2x1 at 1( 0) + 0 on 131;
-  architecture structural of mux_2x1 at 14( 353) + 0 on 132;
-file . "onebitcomparator.vhdl" "455e366807e4294e64e1c97d133ed4fb0f98d3f9" "20260201203054.874":
-  entity onebitcomparator at 28( 1689) + 0 on 129;
-  architecture rtl of onebitcomparator at 38( 1909) + 0 on 130;
-file . "quad_n_mux_selector.vhdl" "debf769a3368762cbf0cc4bfebea2655bf683337" "20260201203054.854":
-  entity quad_n_mux_selector at 1( 0) + 0 on 127;
-  architecture rtl of quad_n_mux_selector at 18( 469) + 0 on 128;
-file . "enARdFF_2.vhd" "e3606d84e3ff63bcd5b5d51a63bbb7b46c1aedfe" "20260201203054.837":
-  entity enardff_2 at 28( 1741) + 0 on 125;
-  architecture rtl of enardff_2 at 40( 1978) + 0 on 126;
-file . "oneBitAdder.vhd" "3ca6ffd07e1d03fa6a8bbb04d7a761dae4512267" "20260201203054.819":
-  entity onebitadder at 28( 1679) + 0 on 123;
-  architecture rtl of onebitadder at 38( 1877) + 0 on 124;
+file . "fpMult_sim.vhdl" "b6cd596c8904fd90a42127e069b9d163fc0a4cf6" "20260210210318.696":
+  entity fpmult_sim at 1( 0) + 0 on 211;
+  architecture behavior of fpmult_sim at 8( 115) + 0 on 212;
+file . "fpMult.vhdl" "4265c2389be44f95868b6d191fc4967a55302bde" "20260210210318.664":
+  entity fpmult at 1( 0) + 0 on 209;
+  architecture structural of fpmult at 21( 669) + 0 on 210;
+file . "controlUnit_Mult.vhdl" "9c63089cac22e67868c2e42f1e1dd2384bf2ef74" "20260210210318.653":
+  entity controlunit_mult at 1( 0) + 0 on 207;
+  architecture structural of controlunit_mult at 16( 399) + 0 on 208;
+file . "fpAdd_sim.vhdl" "4be3965621a681e134b01956f7a065a5f7d7f06e" "20260210210318.605":
+  entity fpadd_sim at 1( 0) + 0 on 205;
+  architecture behavior of fpadd_sim at 8( 113) + 0 on 206;
+file . "fpAdd.vhdl" "af5d6a8c50bac76c2371b59235a76b587d6150c0" "20260210210318.603":
+  entity fpadd at 1( 0) + 0 on 203;
+  architecture structural of fpadd at 21( 667) + 0 on 204;
+file . "controlUnit.vhdl" "fa024b51f3df48ea40f0d5491ded22961d042a86" "20260210210318.600":
+  entity controlunit at 1( 0) + 0 on 201;
+  architecture structural of controlunit at 13( 284) + 0 on 202;
+file . "bigALU.vhdl" "3dd2125deafa5776f7c108a1f7b49af6ba2b6026" "20260210210318.598":
+  entity bigalu at 7( 291) + 0 on 199;
+  architecture structural of bigalu at 29( 844) + 0 on 200;
+file . "smallALU.vhdl" "7d0b83ef9123a3e1af095c0a61a83a6b1c10ec5b" "20260210210318.596":
+  entity smallalu at 1( 0) + 0 on 197;
+  architecture structural of smallalu at 16( 400) + 0 on 198;
+file . "bidirectional_shifter.vhdl" "d361d0f52f8264245f72abc79e049e991c68e82a" "20260210210318.595":
+  entity bidirectional_shifter at 1( 0) + 0 on 195;
+  architecture structural of bidirectional_shifter at 16( 382) + 0 on 196;
+file . "nbit_register.vhdl" "4a645d90eccf0c7f4ecc02f4f9fa71705725f238" "20260210210318.593":
+  entity nbit_register at 13( 661) + 0 on 193;
+  architecture rtl of nbit_register at 30( 1123) + 0 on 194;
+file . "ripple_adder.vhdl" "cf920f0a6e9f40d82ac3e5be75131c0de8167ca0" "20260210210318.589":
+  entity ripple_adder at 1( 0) + 0 on 191;
+  architecture rtl of ripple_adder at 20( 521) + 0 on 192;
+file . "mux_2x1_16bit.vhdl" "a367fbc217d9407e5a8387358746553623b5092c" "20260210210318.587":
+  entity mux_2x1_16bit at 1( 0) + 0 on 189;
+  architecture structural of mux_2x1_16bit at 12( 262) + 0 on 190;
+file . "mux_2x1.vhdl" "29df43a44d01aee193da00d53fae13bd9e4eb0e1" "20260210210318.585":
+  entity mux_2x1 at 1( 0) + 0 on 187;
+  architecture structural of mux_2x1 at 14( 353) + 0 on 188;
+file . "onebitcomparator.vhdl" "455e366807e4294e64e1c97d133ed4fb0f98d3f9" "20260210210318.583":
+  entity onebitcomparator at 28( 1689) + 0 on 185;
+  architecture rtl of onebitcomparator at 38( 1909) + 0 on 186;
+file . "quad_n_mux_selector.vhdl" "debf769a3368762cbf0cc4bfebea2655bf683337" "20260210210318.582":
+  entity quad_n_mux_selector at 1( 0) + 0 on 183;
+  architecture rtl of quad_n_mux_selector at 18( 469) + 0 on 184;
+file . "enARdFF_2.vhd" "e3606d84e3ff63bcd5b5d51a63bbb7b46c1aedfe" "20260210210318.580":
+  entity enardff_2 at 28( 1741) + 0 on 181;
+  architecture rtl of enardff_2 at 40( 1978) + 0 on 182;
+file . "oneBitAdder.vhd" "3ca6ffd07e1d03fa6a8bbb04d7a761dae4512267" "20260210210318.578":
+  entity onebitadder at 28( 1679) + 0 on 179;
+  architecture rtl of onebitadder at 38( 1877) + 0 on 180;

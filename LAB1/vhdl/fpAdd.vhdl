@@ -82,12 +82,16 @@ ARCHITECTURE structural OF fpAdd IS
         );
     END COMPONENT;
 
+    -- UPDATED COMPONENT DECLARATION FOR GENERIC
     COMPONENT bidirectional_shifter
+        GENERIC (
+            BITS : INTEGER
+        );
         PORT (
-            i_val       : IN  STD_LOGIC_VECTOR(15 DOWNTO 0);
+            i_val       : IN  STD_LOGIC_VECTOR(BITS - 1 DOWNTO 0);
             i_enable    : IN  STD_LOGIC;
             i_direction : IN  STD_LOGIC;
-            o_val       : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+            o_val       : OUT STD_LOGIC_VECTOR(BITS - 1 DOWNTO 0)
         );
     END COMPONENT;
 
@@ -175,7 +179,11 @@ BEGIN
         out_val     => s_Shift_Register_Out
     );
 
+    -- UPDATED INSTANTIATION FOR GENERIC
     U_SHIFTER : bidirectional_shifter
+    GENERIC MAP (
+        BITS => 16
+    )
     PORT MAP(
         i_val       => s_Shift_Register_Out,
         i_direction => '0',

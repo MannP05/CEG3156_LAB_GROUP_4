@@ -20,10 +20,14 @@ DEPS = \
 	bigALU.vhdl \
 	controlUnit.vhdl \
 	fpAdd.vhdl \
-	fpAdd_sim.vhdl
+	fpAdd_sim.vhdl \
+	controlUnit_Mult.vhdl \
+	fpMult.vhdl \
+	fpMult_sim.vhdl \
+
 
 # Entrypoint entity
-E_ENTITY = fpAdd_sim
+E_ENTITY = fpMult_sim
 # Compiler path
 GHDL = ghdl
 # Compiler flags (using 2008 standard handles some syntax better)
