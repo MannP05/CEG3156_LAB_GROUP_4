@@ -21,6 +21,7 @@ ARCHITECTURE structural OF ControlUnit_Mult IS
     SIGNAL s_is_zero, s_is_ten   : STD_LOGIC;
     SIGNAL s_not_done            : STD_LOGIC;
     SIGNAL s_enable_shift        : STD_LOGIC;
+    SIGNAL n_reset               : STD_LOGIC;
     
     COMPONENT bigALU
         GENERIC (BITS : INTEGER);
@@ -54,8 +55,9 @@ BEGIN
     U_MUX_CNT : mux_2x1 GENERIC MAP(4)
     PORT MAP(in_0 => s_count, in_1 => s_plus_one, in_sel => s_not_done, out_mux => s_next_count);
 
+    n_reset <= NOT reset;
     U_COUNTER : nbit_register GENERIC MAP(4)
-    PORT MAP(in_val => s_next_count, in_load => '1', in_resetBar => NOT reset, in_clock => clk, out_val => s_count);
+    PORT MAP(in_val => s_next_count, in_load => '1', in_resetBar => n_reset, in_clock => clk, out_val => s_count);
 
     s_is_zero <= NOT(s_count(3) OR s_count(2) OR s_count(1) OR s_count(0));
     load_inputs <= s_is_zero;

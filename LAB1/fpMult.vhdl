@@ -40,6 +40,7 @@ ARCHITECTURE structural OF fpMult IS
     SIGNAL Zero_Vec_18        : STD_LOGIC_VECTOR(17 DOWNTO 0);
     
     SIGNAL ctrl_load, ctrl_add, ctrl_shift, ctrl_done : STD_LOGIC;
+    SIGNAL n_greset           : STD_LOGIC;
 
     COMPONENT controlUnit_Mult
         PORT (clk, reset, multiplier_bit : IN STD_LOGIC;
@@ -90,8 +91,9 @@ BEGIN
     U_MUX_A : mux_2x1 GENERIC MAP (18)
     PORT MAP (in_0 => Shifter_A_Out, in_1 => MantA_Ext, in_sel => ctrl_load, out_mux => Reg_A_In);
 
+    n_greset <= NOT GReset;
     U_REG_A : nbit_register GENERIC MAP (18)
-    PORT MAP (in_val => Reg_A_In, in_load => '1', in_resetBar => NOT GReset, in_clock => GClock, out_val => Reg_A_Out);
+    PORT MAP (in_val => Reg_A_In, in_load => '1', in_resetBar => n_greset, in_clock => GClock, out_val => Reg_A_Out);
 
     U_SHIFT_A : bidirectional_shifter GENERIC MAP (18)
     PORT MAP (i_val => Reg_A_Out, i_enable => ctrl_shift, i_direction => '1', o_val => Shifter_A_Out);
@@ -100,7 +102,7 @@ BEGIN
     PORT MAP (in_0 => Shifter_B_Out, in_1 => MantB_Ext, in_sel => ctrl_load, out_mux => Reg_B_In);
 
     U_REG_B : nbit_register GENERIC MAP (9)
-    PORT MAP (in_val => Reg_B_In, in_load => '1', in_resetBar => NOT GReset, in_clock => GClock, out_val => Reg_B_Out);
+    PORT MAP (in_val => Reg_B_In, in_load => '1', in_resetBar => n_greset, in_clock => GClock, out_val => Reg_B_Out);
 
     U_SHIFT_B : bidirectional_shifter GENERIC MAP (9)
     PORT MAP (i_val => Reg_B_Out, i_enable => ctrl_shift, i_direction => '0', o_val => Shifter_B_Out);
@@ -116,7 +118,7 @@ BEGIN
     PORT MAP (in_0 => Mux_Prod_Calc, in_1 => Zero_Vec_18, in_sel => ctrl_load, out_mux => Prod_In);
 
     U_REG_PROD : nbit_register GENERIC MAP (18)
-    PORT MAP (in_val => Prod_In, in_load => '1', in_resetBar => NOT GReset, in_clock => GClock, out_val => Prod_Out);
+    PORT MAP (in_val => Prod_In, in_load => '1', in_resetBar => n_greset, in_clock => GClock, out_val => Prod_Out);
 
     ExpA_8 <= '0' & ExponentA;
     ExpB_8 <= '0' & ExponentB;

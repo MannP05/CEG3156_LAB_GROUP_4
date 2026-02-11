@@ -2,10 +2,10 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
-ENTITY fpAdd_sim IS
-END fpAdd_sim;
+ENTITY tb_fpAdd IS
+END tb_fpAdd;
 
-ARCHITECTURE behavior OF fpAdd_sim IS 
+ARCHITECTURE behavior OF tb_fpAdd IS 
 
     -- Component Declaration for the Unit Under Test (UUT)
     COMPONENT fpAdd
