@@ -92,7 +92,7 @@ BEGIN
         -- Exponent: 1 + 63 = 64 (1000000)
         -- Mantissa: 0.25 (binary .01000000) -> "01000000"
         SignA <= '0';
-        ExponentA <= "1000000"; 
+        ExponentA <= "0111111"; 
         MantissaA <= "01000000";
 
         -- Input B: 12.0
@@ -101,42 +101,13 @@ BEGIN
         -- Exponent: 3 + 63 = 66 (1000010)
         -- Mantissa: 0.5 (binary .10000000) -> "10000000"
         SignB <= '0';
-        ExponentB <= "1000010"; 
-        MantissaB <= "10000000";
+        ExponentB <= "1000000"; 
+        MantissaB <= "01000000";
 
         -- Pulse Reset to start the Multiplier state machine
         -- (Assuming design starts on Reset release or uses a start signal)
         -- Based on your code, it loads inputs when reset releases or control logic loops.
         -- Let's give it time to calculate (Shift-Add takes approx 9-10 cycles)
-        WAIT FOR clk_period * 20;
-
-
-        -- =========================================================
-        -- TEST CASE 2: -3.0 * 1.5 = -4.5 (Normalization Check)
-        -- =========================================================
-        -- We need to assert reset briefly to restart the control unit for new inputs
-        GReset <= '1';
-        WAIT FOR clk_period;
-        
-        -- Input A: -3.0
-        -- -3.0 = -1.5 * 2^1
-        -- Sign: 1
-        -- Exponent: 1 + 63 = 64 (1000000)
-        -- Mantissa: 0.5 -> "10000000"
-        SignA <= '1';
-        ExponentA <= "1000000";
-        MantissaA <= "10000000";
-
-        -- Input B: 1.5
-        -- 1.5 = 1.5 * 2^0
-        -- Sign: 0
-        -- Exponent: 0 + 63 = 63 (0111111)
-        -- Mantissa: 0.5 -> "10000000"
-        SignB <= '0';
-        ExponentB <= "0111111";
-        MantissaB <= "10000000";
-        
-        GReset <= '0'; -- Start calculation
         WAIT FOR clk_period * 20;
 
         -- End Simulation

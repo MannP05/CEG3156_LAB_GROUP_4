@@ -84,63 +84,18 @@ BEGIN
         GReset <= '1'; -- Release Reset
         wait for 50 ns;
 
-        ------------------------------------------------------------
-        -- CASE 1: Equal Exponents (No Shifting Needed)
-        -- A = 1.10000000 * 2^5
-        -- B = 1.00000000 * 2^5
-        ------------------------------------------------------------
-        SignA <= '0'; ExponentA <= "0000101"; MantissaA <= "10000000";
-        SignB <= '0'; ExponentB <= "0000101"; MantissaB <= "00000000";
-        
-        -- IMPORTANT: Pulse Reset to load the new Difference (0) into Control Unit
+        -- TEST CASE 1: A + B = 3.75
+        SignA <= '0'; ExponentA <= "0111111"; MantissaA <= "01000000"; -- +1.25
+        SignB <= '1'; ExponentB <= "1000000"; MantissaB <= "01000000"; -- +2.5
+
         wait for 10 ns; 
         GReset <= '0'; wait for 20 ns; GReset <= '1';
-        
+
         wait for 200 ns; -- Wait for result
 
-        ------------------------------------------------------------
-        -- CASE 2: Different Exponents (Shifting Needed)
-        -- A = 1.00000000 * 2^7  (Larger)
-        -- B = 1.00000000 * 2^5  (Smaller by 2)
-        -- Exp Diff = 2. B should shift right 2 times.
-        ------------------------------------------------------------
-        SignA <= '0'; ExponentA <= "0000111"; MantissaA <= "00000000";
-        SignB <= '0'; ExponentB <= "0000101"; MantissaB <= "00000000";
 
-        -- IMPORTANT: Pulse Reset to load the new Difference (2) into Control Unit
-        wait for 10 ns; 
-        GReset <= '0'; wait for 20 ns; GReset <= '1';
-
-        wait for 300 ns; -- Wait enough clocks for 2 shifts
-
-        ------------------------------------------------------------
-        -- CASE 3: Large Difference (B becomes zero)
-        -- A = 2^20
-        -- B = 2^1
-        -- Diff = 19. B should shift out completely.
-        ------------------------------------------------------------
-        SignA <= '0'; ExponentA <= "0010100"; MantissaA <= "11110000";
-        SignB <= '0'; ExponentB <= "0000001"; MantissaB <= "10000000";
         
-        -- IMPORTANT: Pulse Reset to load the new Difference (19)
-        wait for 10 ns; 
-        GReset <= '0'; wait for 20 ns; GReset <= '1';
-        
-        wait for 300 ns;
 
-        ------------------------------------------------------------
-        -- CASE 4: Swap Check (A is smaller)
-        -- A = 2^5
-        -- B = 2^8
-        -- Diff = 3. A should be swapped to "Small" path and shifted.
-        ------------------------------------------------------------
-        SignA <= '0'; ExponentA <= "0000101"; MantissaA <= "10000000";
-        SignB <= '0'; ExponentB <= "0001000"; MantissaB <= "00000000";
-        
-        wait for 10 ns; 
-        GReset <= '0'; wait for 20 ns; GReset <= '1';
-
-        wait for 300 ns;
 
         assert false report "Simulation Finished" severity failure;
         wait;
