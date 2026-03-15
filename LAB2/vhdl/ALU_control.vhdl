@@ -9,17 +9,17 @@ entity ALU_control is
     );
 end ALU_control;
 
-architecture Behavioral of ALU_control is
+architecture Structural of ALU_control is
     signal ALUOP_0, ALUOP_1: std_logic;
 
 begin
     AluOP_0 <= ALU_Op(0);
     AluOP_1 <= ALU_Op(1);
 
-    Operation(0) <= (ALUOP_1 and funct(1)) or ALUOP_0;
+    Operation(2) <= (ALUOP_1 and funct(1)) or ALUOP_0;
     Operation(1) <= (not funct(2)) or (not ALUOP_1);
-    Operation(2) <= (funct(0) or funct(3)) and ALUOP_1;
-end Behavioral;
+    Operation(0) <= (funct(0) or funct(3)) and ALUOP_1;
+end Structural;
 
 
 

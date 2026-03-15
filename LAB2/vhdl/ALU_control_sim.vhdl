@@ -23,9 +23,8 @@ architecture behavior of ALU_control_sim is
     signal tb_ALU_Operation : std_logic_vector(2 downto 0);
 
 begin
-
     -- 3. Instantiate the Component
-    UUT: ALU_control port map (
+    alu_1: ALU_control port map (
         ALU_Op        => tb_ALU_Op,
         funct         => tb_funct,
         ALU_Operation => tb_ALU_Operation

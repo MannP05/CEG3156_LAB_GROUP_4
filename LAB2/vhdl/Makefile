@@ -5,7 +5,7 @@
 # List of all files in the project
 DEPS = *.vhdl 
 # Entrypoint entity, which is what gets run
-E_ENTITY = control_unit_sim
+E_ENTITY = ALU_control_sim
 # Compiler path
 GHDL = ghdl
 # Compiler flags
