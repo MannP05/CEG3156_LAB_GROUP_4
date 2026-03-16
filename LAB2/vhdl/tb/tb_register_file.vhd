@@ -9,36 +9,34 @@ architecture behavior of tb_register_file is
     component register_file
         port(
             i_clock      : in  std_logic;
+            i_reset      : in  std_logic;
             i_RegWrite   : in  std_logic;
-            i_read_reg1  : in  std_logic_vector(4 downto 0);
-            i_read_reg2  : in  std_logic_vector(4 downto 0);
-            i_write_reg  : in  std_logic_vector(4 downto 0);
-            i_write_data : in  std_logic_vector(31 downto 0);
-            o_read_data1 : out std_logic_vector(31 downto 0);
-            o_read_data2 : out std_logic_vector(31 downto 0)
+            i_read_reg1  : in  std_logic_vector(2 downto 0);
+            i_read_reg2  : in  std_logic_vector(2 downto 0);
+            i_write_reg  : in  std_logic_vector(2 downto 0);
+            i_write_data : in  std_logic_vector(7 downto 0);
+            o_read_data1 : out std_logic_vector(7 downto 0);
+            o_read_data2 : out std_logic_vector(7 downto 0)
         );
     end component;
 
-    -- Testbench signals
     signal tb_clock      : std_logic := '0';
+    signal tb_reset      : std_logic := '0';
     signal tb_RegWrite   : std_logic := '0';
-    signal tb_read_reg1  : std_logic_vector(4 downto 0) := (others => '0');
-    signal tb_read_reg2  : std_logic_vector(4 downto 0) := (others => '0');
-    signal tb_write_reg  : std_logic_vector(4 downto 0) := (others => '0');
-    signal tb_write_data : std_logic_vector(31 downto 0) := (others => '0');
-    signal tb_read_data1 : std_logic_vector(31 downto 0);
-    signal tb_read_data2 : std_logic_vector(31 downto 0);
+    signal tb_read_reg1  : std_logic_vector(2 downto 0) := (others => '0');
+    signal tb_read_reg2  : std_logic_vector(2 downto 0) := (others => '0');
+    signal tb_write_reg  : std_logic_vector(2 downto 0) := (others => '0');
+    signal tb_write_data : std_logic_vector(7 downto 0) := (others => '0');
+    signal tb_read_data1 : std_logic_vector(7 downto 0);
+    signal tb_read_data2 : std_logic_vector(7 downto 0);
 
-    -- Simulation control
-    signal sim_done : boolean := false;
-
-    -- Clock period
     constant clk_period : time := 10 ns;
 
 begin
 
     reg_file: register_file port map (
         i_clock      => tb_clock,
+        i_reset      => tb_reset,
         i_RegWrite   => tb_RegWrite,
         i_read_reg1  => tb_read_reg1,
         i_read_reg2  => tb_read_reg2,
@@ -48,96 +46,102 @@ begin
         o_read_data2 => tb_read_data2
     );
 
-    -- Clock generation process (stops when sim_done is true)
     clk_proc: process
     begin
-        if sim_done then
-            wait;
-        end if;
         tb_clock <= '0';
         wait for clk_period / 2;
         tb_clock <= '1';
         wait for clk_period / 2;
     end process;
 
-    -- Stimulus process
     stim_proc: process
     begin
-        -- Initialize
+        -- Reset
+        tb_reset <= '1';
+        wait for clk_period;
+        tb_reset <= '0';
         wait for clk_period;
 
-        -- Test 1: Write to register $0 (should remain zero - hardwired)
-        tb_write_reg  <= "00000";  -- $0
-        tb_write_data <= x"DEADBEEF";
+        -- Write 0xAB to $0 (should stay 0x00, hardwired)
+        tb_write_reg  <= "000";
+        tb_write_data <= x"AB";
         tb_RegWrite   <= '1';
         wait for clk_period;
         tb_RegWrite   <= '0';
-        tb_read_reg1  <= "00000";  -- Read $0
+        tb_read_reg1  <= "000";
         wait for clk_period;
-        -- Expected: o_read_data1 = 0x00000000
 
-        -- Test 2: Write to register $1
-        tb_write_reg  <= "00001";  -- $1
-        tb_write_data <= x"12345678";
+        -- Write 0x55 to $1
+        tb_write_reg  <= "001";
+        tb_write_data <= x"55";
         tb_RegWrite   <= '1';
         wait for clk_period;
         tb_RegWrite   <= '0';
-        tb_read_reg1  <= "00001";  -- Read $1
+        tb_read_reg1  <= "001";
         wait for clk_period;
-        -- Expected: o_read_data1 = 0x12345678
 
-        -- Test 3: Write to register $31
-        tb_write_reg  <= "11111";  -- $31
-        tb_write_data <= x"ABCDEF01";
+        -- Write 0xAA to $7
+        tb_write_reg  <= "111";
+        tb_write_data <= x"AA";
         tb_RegWrite   <= '1';
         wait for clk_period;
         tb_RegWrite   <= '0';
-        tb_read_reg1  <= "11111";  -- Read $31
+        tb_read_reg1  <= "111";
         wait for clk_period;
-        -- Expected: o_read_data1 = 0xABCDEF01
 
-        -- Test 4: Read two registers simultaneously
-        tb_write_reg  <= "00010";  -- $2
-        tb_write_data <= x"11111111";
+        -- Write 0x11 to $2, then 0x22 to $3, read both
+        tb_write_reg  <= "010";
+        tb_write_data <= x"11";
         tb_RegWrite   <= '1';
         wait for clk_period;
-        tb_write_reg  <= "00011";  -- $3
-        tb_write_data <= x"22222222";
+        tb_write_reg  <= "011";
+        tb_write_data <= x"22";
         wait for clk_period;
         tb_RegWrite   <= '0';
-        tb_read_reg1  <= "00010";  -- Read $2
-        tb_read_reg2  <= "00011";  -- Read $3
+        tb_read_reg1  <= "010";
+        tb_read_reg2  <= "011";
         wait for clk_period;
-        -- Expected: o_read_data1 = 0x11111111, o_read_data2 = 0x22222222
 
-        -- Test 5: Write disabled (RegWrite = 0)
-        tb_write_reg  <= "00100";  -- $4
-        tb_write_data <= x"FFFFFFFF";
-        tb_RegWrite   <= '0';  -- Write disabled
+        -- Write disabled: try writing 0xFF to $4
+        tb_write_reg  <= "100";
+        tb_write_data <= x"FF";
+        tb_RegWrite   <= '0';
         wait for clk_period;
-        tb_read_reg1  <= "00100";  -- Read $4
+        tb_read_reg1  <= "100";
         wait for clk_period;
-        -- Expected: o_read_data1 should NOT be 0xFFFFFFFF
 
-        -- Test 6: Write to register $15 (middle register)
-        tb_write_reg  <= "01111";  -- $15
-        tb_write_data <= x"55555555";
+        -- Write 0xCC to $5, verify $1 unchanged
+        tb_write_reg  <= "101";
+        tb_write_data <= x"CC";
         tb_RegWrite   <= '1';
         wait for clk_period;
         tb_RegWrite   <= '0';
-        tb_read_reg1  <= "01111";  -- Read $15
-        tb_read_reg2  <= "00001";  -- Read $1 (should still be 0x12345678)
+        tb_read_reg1  <= "101";
+        tb_read_reg2  <= "001";
         wait for clk_period;
-        -- Expected: o_read_data1 = 0x55555555, o_read_data2 = 0x12345678
 
-        -- Test 7: Verify $0 is still zero
-        tb_read_reg1  <= "00000";
-        tb_read_reg2  <= "00000";
+        -- Overwrite $1 with 0x77
+        tb_write_reg  <= "001";
+        tb_write_data <= x"77";
+        tb_RegWrite   <= '1';
         wait for clk_period;
-        -- Expected: both outputs = 0x00000000
+        tb_RegWrite   <= '0';
+        tb_read_reg1  <= "001";
+        wait for clk_period;
 
-        report "*** All tests completed ***" severity note;
-        sim_done <= true;
+        -- Verify $0 still zero
+        tb_read_reg1  <= "000";
+        tb_read_reg2  <= "000";
+        wait for clk_period;
+
+        -- Reset and verify cleared
+        tb_reset <= '1';
+        wait for clk_period;
+        tb_reset <= '0';
+        tb_read_reg1  <= "001";
+        tb_read_reg2  <= "111";
+        wait for clk_period;
+
         wait;
     end process;
 
