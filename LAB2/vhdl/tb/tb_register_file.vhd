@@ -32,6 +32,8 @@ architecture behavior of tb_register_file is
 
     constant clk_period : time := 10 ns;
 
+    signal sim_done : boolean := false;
+
 begin
 
     reg_file: register_file port map (
@@ -48,6 +50,9 @@ begin
 
     clk_proc: process
     begin
+        if sim_done then
+            wait;
+        end if;
         tb_clock <= '0';
         wait for clk_period / 2;
         tb_clock <= '1';
@@ -142,6 +147,7 @@ begin
         tb_read_reg2  <= "111";
         wait for clk_period;
 
+        sim_done <= true;
         wait;
     end process;
 

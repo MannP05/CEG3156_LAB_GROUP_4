@@ -46,11 +46,11 @@ run_all: analyze
 	@for tb in $(ALL_TB_ENTITIES); do \
 		echo "---------------------------------------------"; \
 		echo "Target: $$tb"; \
-		if (cd $(OBJ_DIR) && ghdl -e -fsynopsys $$tb) 2>/dev/null; then \
+		if (cd $(OBJ_DIR) && ghdl -e -fsynopsys $$tb); then \
 			echo " [OK] Running simulation..."; \
 			(cd $(OBJ_DIR) && ghdl -r -fsynopsys $$tb --vcd=../$(OUTPUT_DIR)/$$tb.vcd --stop-time=100ms) || true; \
 		else \
-			echo " [ERROR] Elaboration failed"; \
+			echo " [ERROR] Elaboration failed (see above)"; \
 		fi; \
 	done
 	@echo "---------------------------------------------"
