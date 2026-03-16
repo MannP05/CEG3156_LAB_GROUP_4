@@ -29,14 +29,14 @@ analyze: init
 	@echo "--- Analyzing Core Sources ---"
 	ghdl -a -fsynopsys --workdir=$(OBJ_DIR) $(VHDL_SOURCES)
 	@echo "--- Analyzing Testbenches ---"
-	ghdl -a --workdir=$(OBJ_DIR) $(ALL_TB_SOURCES) || true
+	ghdl -a -fsynopsys --workdir=$(OBJ_DIR) $(ALL_TB_SOURCES) || true
 
 # 3. Run Specific Test (make run)
 elaborate: analyze
-	ghdl -e --workdir=$(OBJ_DIR) -o $(ENTITY_DIR)/$(TOP_ENTITY) $(TOP_ENTITY)
+	(cd $(OBJ_DIR) && ghdl -e -fsynopsys $(TOP_ENTITY))
 
 run: elaborate
-	$(ENTITY_DIR)/$(TOP_ENTITY) --vcd=$(OUTPUT_DIR)/$(ENTITY_NAME).vcd --stop-time=100ms
+	(cd $(OBJ_DIR) && ghdl -r -fsynopsys $(TOP_ENTITY) --vcd=../$(OUTPUT_DIR)/$(ENTITY_NAME).vcd --stop-time=100ms)
 
 # 4. Run ALL Tests (make run_all)
 run_all: analyze
@@ -46,11 +46,11 @@ run_all: analyze
 	@for tb in $(ALL_TB_ENTITIES); do \
 		echo "---------------------------------------------"; \
 		echo "Target: $$tb"; \
-		if ghdl -e --workdir=$(OBJ_DIR) -o $(ENTITY_DIR)/$$tb $$tb 2>/dev/null; then \
+		if (cd $(OBJ_DIR) && ghdl -e -fsynopsys $$tb) 2>/dev/null; then \
 			echo " [OK] Running simulation..."; \
-			$(ENTITY_DIR)/$$tb --vcd=$(OUTPUT_DIR)/$$tb.vcd --stop-time=100ms || true; \
+			(cd $(OBJ_DIR) && ghdl -r -fsynopsys $$tb --vcd=../$(OUTPUT_DIR)/$$tb.vcd --stop-time=100ms) || true; \
 		else \
-			echo " [ERROR] Elaboration failed (Check entity name matches filename)"; \
+			echo " [ERROR] Elaboration failed"; \
 		fi; \
 	done
 	@echo "---------------------------------------------"
