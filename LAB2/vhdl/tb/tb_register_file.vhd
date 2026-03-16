@@ -29,6 +29,9 @@ architecture behavior of tb_register_file is
     signal tb_read_data1 : std_logic_vector(31 downto 0);
     signal tb_read_data2 : std_logic_vector(31 downto 0);
 
+    -- Simulation control
+    signal sim_done : boolean := false;
+
     -- Clock period
     constant clk_period : time := 10 ns;
 
@@ -45,9 +48,12 @@ begin
         o_read_data2 => tb_read_data2
     );
 
-    -- Clock generation process
+    -- Clock generation process (stops when sim_done is true)
     clk_proc: process
     begin
+        if sim_done then
+            wait;
+        end if;
         tb_clock <= '0';
         wait for clk_period / 2;
         tb_clock <= '1';
@@ -130,6 +136,8 @@ begin
         wait for clk_period;
         -- Expected: both outputs = 0x00000000
 
+        report "*** All tests completed ***" severity note;
+        sim_done <= true;
         wait;
     end process;
 
