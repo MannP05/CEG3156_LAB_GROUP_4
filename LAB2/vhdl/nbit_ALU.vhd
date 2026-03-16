@@ -1,7 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-ENTITY ALU IS
+ENTITY nbit_ALU IS
     GENERIC (n : INTEGER := 8);
     PORT(
         i_A          : IN  STD_LOGIC_VECTOR(n-1 downto 0);
@@ -9,9 +9,9 @@ ENTITY ALU IS
         i_ALUControl : IN  STD_LOGIC_VECTOR(2 downto 0);
         o_ALUResult  : OUT STD_LOGIC_VECTOR(n-1 downto 0);
         o_Zero       : OUT STD_LOGIC);
-END ALU;
+END nbit_ALU;
 
-ARCHITECTURE rtl OF ALU IS
+ARCHITECTURE rtl OF nbit_ALU IS
 
     SIGNAL and_result    : STD_LOGIC_VECTOR(n-1 downto 0);
     SIGNAL or_result     : STD_LOGIC_VECTOR(n-1 downto 0);
