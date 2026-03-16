@@ -1,19 +1,45 @@
 v 4
-file . "Control_Unit_sim.vhdl" "50c839a042995ed415c9a9c4e3fcce61c9dd457e" "20260309130807.858":
-  entity control_unit_sim at 1( 0) + 0 on 97;
-  architecture behavior of control_unit_sim at 7( 100) + 0 on 98;
-file . "Control_Unit.vhdl" "28d9683541a5cdc4ec4e267af70d49ce0308212e" "20260309130807.856":
-  entity control_unit at 1( 0) + 0 on 95;
-  architecture structural of control_unit at 18( 450) + 0 on 96;
-file . "quad_n_mux_selector.vhdl" "debf769a3368762cbf0cc4bfebea2655bf683337" "20260309130807.862":
-  entity quad_n_mux_selector at 1( 0) + 0 on 101;
-  architecture rtl of quad_n_mux_selector at 18( 469) + 0 on 102;
-file . "mux_2x1.vhdl" "29df43a44d01aee193da00d53fae13bd9e4eb0e1" "20260309130807.860":
-  entity mux_2x1 at 1( 0) + 0 on 99;
-  architecture structural of mux_2x1 at 14( 353) + 0 on 100;
-file . "ALU_control_sim.vhdl" "7af2155640c45dd6526939ada2f92daaec82c9ad" "20260309130807.850":
-  entity alu_control_sim at 1( 0) + 0 on 93;
-  architecture behavior of alu_control_sim at 8( 138) + 0 on 94;
-file . "ALU_control.vhdl" "984096ff6230f9897cb67356d7550e6323cbb60f" "20260309130807.832":
-  entity alu_control at 1( 0) + 0 on 91;
-  architecture behavioral of alu_control at 12( 265) + 0 on 92;
+file . "ALU_control.vhdl" "5158f87e2bedaa47213031a30d61cecf0e43077d" "20260315205952.348":
+  entity alu_control at 1( 0) + 0 on 4;
+  architecture structural of alu_control at 12( 265) + 0 on 4;
+file . "ALU_control_sim.vhdl" "7af2155640c45dd6526939ada2f92daaec82c9ad" "20260315205952.352":
+  entity alu_control_sim at 1( 0) + 0 on 4;
+  architecture behavior of alu_control_sim at 8( 138) + 0 on 4;
+file . "Control_Unit.vhdl" "9900bd5dd1ce96cf7afd5fbb9ead622dc964e560" "20260315205952.368":
+  entity control_unit at 1( 0) + 0 on 4;
+  architecture structural of control_unit at 18( 450) + 0 on 4;
+file . "Control_Unit_sim.vhdl" "50c839a042995ed415c9a9c4e3fcce61c9dd457e" "20260315205952.373":
+  entity control_unit_sim at 1( 0) + 0 on 4;
+  architecture behavior of control_unit_sim at 7( 100) + 0 on 4;
+file . "decoder_5_to_32.vhdl" "865099a92003a94140d1afeb5e107082f4aa204c" "20260315205952.747":
+  entity decoder_5to32 at 1( 0) + 0 on 16;
+  architecture structural of decoder_5to32 at 12( 256) + 0 on 17;
+file . "mux_2x1.vhdl" "29df43a44d01aee193da00d53fae13bd9e4eb0e1" "20260315205952.747":
+  entity mux_2x1 at 1( 0) + 0 on 24;
+  architecture structural of mux_2x1 at 14( 353) + 0 on 25;
+file . "mux_32_to_1.vhdl" "d50fc717e3602580f5cc10ee536637b748fbaf82" "20260315205952.747":
+  entity mux_32_to_1 at 1( 0) + 0 on 20;
+  architecture structural of mux_32_to_1 at 13( 282) + 0 on 21;
+file . "mux_package.vhdl" "8de9e7dc07a9b9fe3f847bd1b123fa4eee994f62" "20260315205952.747":
+  package mux_package at 8( 462) + 0 on 13;
+file . "quad_n_mux_selector.vhdl" "debf769a3368762cbf0cc4bfebea2655bf683337" "20260315205952.747":
+  entity quad_n_mux_selector at 1( 0) + 0 on 26;
+  architecture rtl of quad_n_mux_selector at 18( 469) + 0 on 27;
+file . "reg_32.vhdl" "44db717c5b08ce7e160ac0d00d17d434ea2f2bdb" "20260315205952.747":
+  entity reg_32 at 1( 0) + 4 on 18;
+  architecture structural of reg_32 at 13( 314) + 4 on 19;
+file . "register_file.vhdl" "258416493434e2ae80785aec21c749abae1a9bdf" "20260315205952.747":
+  entity register_file at 1( 0) + 0 on 14;
+  architecture structural of register_file at 18( 568) + 0 on 15;
+file . "register_file_sim.vhdl" "014af026f02722acdb48191eb59b69c1c63bf0b4" "20260315205952.747":
+  entity register_file_sim at 1( 0) + 0 on 11;
+  architecture behavior of register_file_sim at 7( 102) + 0 on 12;
+file . "sign_extended.vhdl" "505a8e6bb4091eaab79d471382d73cfc17a1fe12" "20260315205952.398":
+  entity sign_extended at 1( 0) + 0 on 4;
+  architecture structural of sign_extended at 11( 216) + 0 on 4;
+file . "sign_extended_sim.vhdl" "62d32e9e71063f3500d2c40dcfe6dc0313ec5ef2" "20260315205952.400":
+  entity sign_extended_sim at 1( 0) + 0 on 4;
+  architecture behavioral of sign_extended_sim at 9( 220) + 0 on 4;
+file . "dFF_2.vhd" "26a60d62efb4390d7aa2c603a30c94ac71b55eec" "20260315205952.747":
+  entity dff_2 at 1( 0) + 0 on 22;
+  architecture rtl of dff_2 at 13( 236) + 0 on 23;

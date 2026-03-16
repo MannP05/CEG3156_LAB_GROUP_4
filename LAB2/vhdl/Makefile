@@ -1,25 +1,27 @@
-
-# GHDL Docs
-# https://ghdl.github.io/ghdl/index.html
-
 # List of all files in the project
-DEPS = *.vhdl 
+DEPS = *.vhdl *.vhd
+
 # Entrypoint entity, which is what gets run
-E_ENTITY = ALU_control_sim
+E_ENTITY = register_file_sim
+
 # Compiler path
 GHDL = ghdl
+
 # Compiler flags
 C_FLAGS = -fsynopsys
+
 # Wave file (open with something like gtkwave)
 WAVE_F = wave.vcd
-# Addotional runtime lags
-R_FLAGS = 
 
-default:
-	@$(GHDL)  -a $(C_FLAGS) $(DEPS) # Analyzing the files
-	@$(GHDL)  -e $(C_FLAGS) $(E_ENTITY)  # elaborate the entrypoint entity
-	@$(GHDL)  -r $(C_FLAGS) $(E_ENTITY) --stop-time=4us --vcd=$(WAVE_F) $(R_FLAGS) # run the entity 
+# Additional runtime flags
+R_FLAGS =
+
+default: clean
+	@$(GHDL) -i $(C_FLAGS) $(DEPS)
+	@$(GHDL) -m $(C_FLAGS) $(E_ENTITY)
+	@$(GHDL) -r $(C_FLAGS) $(E_ENTITY) --stop-time=4us --vcd=$(WAVE_F) $(R_FLAGS)
 
 clean:
 	@rm -f $(WAVE_F)
 	@rm -f work-obj*.cf
+	@rm -f *.o $(E_ENTITY) e~*
