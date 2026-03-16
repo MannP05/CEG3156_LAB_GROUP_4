@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+library lpm;
+use lpm.lpm_components.all;
+
+entity instruction_memory is
+    port (
+        i_address : in  std_logic_vector(7 downto 0);
+        o_data    : out std_logic_vector(31 downto 0)
+    );
+end entity;
+
+architecture structural of instruction_memory is
+begin
+    rom_inst : lpm_rom
+        generic map (
+            lpm_widthad          => 8,
+            lpm_width            => 32,
+            lpm_file             => "inst_mem.mif",
+            lpm_address_control  => "UNREGISTERED",
+            lpm_outdata          => "UNREGISTERED"
+        )
+        port map (
+            address => i_address,
+            q       => o_data
+        );
+end architecture;
