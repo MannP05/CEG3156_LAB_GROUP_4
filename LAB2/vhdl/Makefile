@@ -7,7 +7,8 @@ TEST_NAME = $(ENTITY_NAME)
 
 # Source files - packages first, then everything else
 VHDL_PACKAGES = $(wildcard *_package.vhd)
-VHDL_SOURCES = $(filter-out $(VHDL_PACKAGES), $(wildcard *.vhd))
+EXCLUDE_SOURCES = data_memory.vhd instruction_memory.vhd
+VHDL_SOURCES = $(filter-out $(VHDL_PACKAGES) $(EXCLUDE_SOURCES), $(wildcard *.vhd))
 
 # Testbench Logic
 ALL_TB_SOURCES = $(wildcard $(TESTBENCH_DIR)/*.vhd)
