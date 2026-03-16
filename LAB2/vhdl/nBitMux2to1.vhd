@@ -1,4 +1,4 @@
-LIBRARY ieee;:
+LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
 ENTITY nBitMux2to1 IS  
