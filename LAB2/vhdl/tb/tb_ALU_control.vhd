@@ -1,11 +1,11 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity ALU_control_sim is
+entity tb_ALU_control is
 -- Testbench entities are always empty
-end ALU_control_sim;
+end tb_ALU_control;
 
-architecture behavior of ALU_control_sim is
+architecture behavior of tb_ALU_control is
 
     -- 1. Declare the Component Under Test (UUT)
     component ALU_control

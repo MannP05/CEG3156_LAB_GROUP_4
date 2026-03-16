@@ -1,10 +1,10 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity control_unit_sim is
-end control_unit_sim;
+entity tb_Control_Unit is
+end tb_Control_Unit;
 
-architecture behavior of control_unit_sim is
+architecture behavior of tb_Control_Unit is
 
     component Control_Unit
         port(

@@ -1,10 +1,10 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity register_file_sim is
-end register_file_sim;
+entity tb_register_file is
+end tb_register_file;
 
-architecture behavior of register_file_sim is
+architecture behavior of tb_register_file is
 
     component register_file
         port(

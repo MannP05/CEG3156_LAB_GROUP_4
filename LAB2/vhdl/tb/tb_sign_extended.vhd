@@ -1,12 +1,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
-entity sign_extended_sim is
+entity tb_sign_extended is
     port(
         input : in std_logic_vector(15 downto 0);
         output : out std_logic_vector(31 downto 0)
     );
-end sign_extended_sim;
-architecture Behavioral of sign_extended_sim is
+end tb_sign_extended;
+architecture Behavioral of tb_sign_extended is
     component sign_extended
         port(
             input : in std_logic_vector(15 downto 0);
