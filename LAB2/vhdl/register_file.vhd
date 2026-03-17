@@ -4,15 +4,15 @@ USE work.mux_package.ALL;
 
 ENTITY register_file IS
     PORT(
-        i_clock      : IN  STD_LOGIC;
-        i_reset      : IN  STD_LOGIC;                     -- ADDED
-        i_RegWrite   : IN  STD_LOGIC;
-        i_read_reg1  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
-        i_read_reg2  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
-        i_write_reg  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
-        i_write_data : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);  -- 8-bit
-        o_read_data1 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);  -- 8-bit
-        o_read_data2 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)   -- 8-bit
+        clock      : IN  STD_LOGIC;
+        reset      : IN  STD_LOGIC;                     -- ADDED
+        RegWrite   : IN  STD_LOGIC;
+        read_reg1  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
+        read_reg2  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
+        write_reg  : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);  -- 3-bit
+        write_data : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);  -- 8-bit
+        read_data1 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);  -- 8-bit
+        read_data2 : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)   -- 8-bit
     );
 END register_file;
 
@@ -51,8 +51,8 @@ BEGIN
 
     -- WRITE DECODER
     write_dec: decoder_3to8 PORT MAP(
-        i_addr   => i_write_reg,
-        i_enable => i_RegWrite,
+        i_addr   => write_reg,
+        i_enable => RegWrite,
         o_y      => int_write_en
     );
 
@@ -62,10 +62,10 @@ BEGIN
     -- REGISTERS 1 through 7
     gen_regs: FOR i IN 1 TO 7 GENERATE
         reg_i: reg_8 PORT MAP(
-            i_d     => i_write_data,
+            i_d     => write_data,
             i_load  => int_write_en(i),
-            i_clock => i_clock,
-            i_reset => i_reset,
+            i_clock => clock,
+            i_reset => reset,
             o_q     => int_reg_out(i)
         );
     END GENERATE;
@@ -73,15 +73,15 @@ BEGIN
     -- READ MUX 1
     read_mux1: mux_8to1_8bit PORT MAP(
         i_inputs => int_reg_out,
-        i_sel    => i_read_reg1,
-        o_y      => o_read_data1
+        i_sel    => read_reg1,
+        o_y      => read_data1
     );
 
     -- READ MUX 2
     read_mux2: mux_8to1_8bit PORT MAP(
         i_inputs => int_reg_out,
-        i_sel    => i_read_reg2,
-        o_y      => o_read_data2
+        i_sel    => read_reg2,
+        o_y      => read_data2
     );
 
 END structural;

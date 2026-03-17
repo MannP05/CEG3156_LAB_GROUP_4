@@ -8,15 +8,15 @@ architecture behavior of tb_register_file is
 
     component register_file
         port(
-            i_clock      : in  std_logic;
-            i_reset      : in  std_logic;
-            i_RegWrite   : in  std_logic;
-            i_read_reg1  : in  std_logic_vector(2 downto 0);
-            i_read_reg2  : in  std_logic_vector(2 downto 0);
-            i_write_reg  : in  std_logic_vector(2 downto 0);
-            i_write_data : in  std_logic_vector(7 downto 0);
-            o_read_data1 : out std_logic_vector(7 downto 0);
-            o_read_data2 : out std_logic_vector(7 downto 0)
+            clock      : in  std_logic;
+            reset      : in  std_logic;
+            RegWrite   : in  std_logic;
+            read_reg1  : in  std_logic_vector(2 downto 0);
+            read_reg2  : in  std_logic_vector(2 downto 0);
+            write_reg  : in  std_logic_vector(2 downto 0);
+            write_data : in  std_logic_vector(7 downto 0);
+            read_data1 : out std_logic_vector(7 downto 0);
+            read_data2 : out std_logic_vector(7 downto 0)
         );
     end component;
 
@@ -37,15 +37,15 @@ architecture behavior of tb_register_file is
 begin
 
     reg_file: register_file port map (
-        i_clock      => tb_clock,
-        i_reset      => tb_reset,
-        i_RegWrite   => tb_RegWrite,
-        i_read_reg1  => tb_read_reg1,
-        i_read_reg2  => tb_read_reg2,
-        i_write_reg  => tb_write_reg,
-        i_write_data => tb_write_data,
-        o_read_data1 => tb_read_data1,
-        o_read_data2 => tb_read_data2
+        clock      => tb_clock,
+        reset      => tb_reset,
+        RegWrite   => tb_RegWrite,
+        read_reg1  => tb_read_reg1,
+        read_reg2  => tb_read_reg2,
+        write_reg  => tb_write_reg,
+        write_data => tb_write_data,
+        read_data1 => tb_read_data1,
+        read_data2 => tb_read_data2
     );
 
     clk_proc: process
