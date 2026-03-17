@@ -11,7 +11,7 @@ ENTITY nBitMux2to1 IS
 END nBitMux2to1;
 
 ARCHITECTURE structural OF nBitMux2to1 IS
-    COMPONENT oneBitMux2to1 IS
+    COMPONENT mux2to1 IS
         PORT(
             s, x0, x1 : IN  STD_LOGIC;
             y         : OUT STD_LOGIC
@@ -19,7 +19,7 @@ ARCHITECTURE structural OF nBitMux2to1 IS
     END COMPONENT;
 BEGIN
     gen_mux: FOR i IN 0 TO n-1 GENERATE
-        mux_i: oneBitMux2to1 PORT MAP(
+        mux_i: mux2to1 PORT MAP(
             s  => i_sel,
             x0 => i_d0(i),
             x1 => i_d1(i),
