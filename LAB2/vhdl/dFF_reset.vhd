@@ -1,3 +1,15 @@
+--------------------------------------------------------------------------------
+-- Title         : D Flip-Flop with Reset
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : dFF_reset.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A structural positive-edge triggered D flip-flop with a 
+--               synchronous active-high reset. It utilizes a basic D flip-flop 
+--               component and combinational logic to clear the stored value 
+--               (force to '0') when the reset signal is asserted.
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
@@ -26,10 +38,8 @@ ARCHITECTURE structural OF dFF_reset IS
 
 BEGIN
 
-    -- AND gate: forces '0' into FF when reset is active
     int_d <= i_d AND (NOT i_reset);
 
-    -- Base flip-flop (no process here, purely structural instantiation)
     ff: dFF_2 PORT MAP(
         i_d     => int_d,
         i_clock => i_clock,

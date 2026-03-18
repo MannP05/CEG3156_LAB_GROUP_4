@@ -21,9 +21,9 @@ applicable agreement for further details.
 (header "graphic" (version "1.4"))
 (pin
 	(input)
-	(rect 184 224 352 240)
+	(rect 376 344 544 360)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "Clock" (rect 5 0 34 12)(font "Arial" ))
+	(text "Clk" (rect 5 0 21 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -37,9 +37,9 @@ applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 184 248 352 264)
+	(rect 376 360 544 376)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "Reset" (rect 5 0 35 12)(font "Arial" ))
+	(text "Rest" (rect 5 0 28 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -53,9 +53,9 @@ applicable agreement for further details.
 )
 (pin
 	(input)
-	(rect 120 320 304 336)
+	(rect 360 376 544 392)
 	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "ValueSelect[2..0]" (rect 5 0 89 12)(font "Arial" ))
+	(text "ValueSelect[2..0]" (rect 5 0 88 12)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -69,7 +69,7 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 840 272 1016 288)
+	(rect 792 344 968 360)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "MuxOut[7..0]" (rect 90 0 153 12)(font "Arial" ))
 	(pt 0 8)
@@ -85,9 +85,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 840 304 1037 320)
+	(rect 792 360 971 376)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "InstructionOut[31..0]" (rect 90 0 191 12)(font "Arial" ))
+	(text "Instruction[31..0]" (rect 90 0 173 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -101,9 +101,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 840 328 1016 344)
+	(rect 792 376 968 392)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "BranchOut" (rect 90 0 141 12)(font "Arial" ))
+	(text "branch" (rect 90 0 123 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -117,9 +117,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 848 344 1024 360)
+	(rect 792 392 968 408)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "Zero" (rect 90 0 112 12)(font "Arial" ))
+	(text "zero" (rect 90 0 110 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -133,9 +133,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 840 360 1016 376)
+	(rect 792 408 968 424)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "MemWrite" (rect 90 0 139 12)(font "Arial" ))
+	(text "memwrite" (rect 90 0 137 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -149,9 +149,9 @@ applicable agreement for further details.
 )
 (pin
 	(output)
-	(rect 840 384 1016 400)
+	(rect 792 424 968 440)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "RegWrite" (rect 90 0 136 12)(font "Arial" ))
+	(text "regwrite" (rect 90 0 127 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -164,8 +164,8 @@ applicable agreement for further details.
 	)
 )
 (symbol
-	(rect 448 264 696 408)
-	(text "SingleCycleProcessor" (rect 5 0 113 12)(font "Arial" ))
+	(rect 544 320 792 464)
+	(text "LAB2" (rect 5 0 30 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
 	(port
 		(pt 0 32)
@@ -233,76 +233,4 @@ applicable agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 232 128))
 	)
-)
-(connector
-	(pt 352 256)
-	(pt 352 312)
-)
-(connector
-	(pt 376 296)
-	(pt 448 296)
-)
-(connector
-	(pt 352 312)
-	(pt 448 312)
-)
-(connector
-	(pt 304 328)
-	(pt 448 328)
-	(bus)
-)
-(connector
-	(pt 376 232)
-	(pt 376 296)
-)
-(connector
-	(pt 376 232)
-	(pt 352 232)
-)
-(connector
-	(pt 840 296)
-	(pt 696 296)
-	(bus)
-)
-(connector
-	(pt 840 296)
-	(pt 840 280)
-	(bus)
-)
-(connector
-	(pt 840 312)
-	(pt 696 312)
-	(bus)
-)
-(connector
-	(pt 840 328)
-	(pt 696 328)
-)
-(connector
-	(pt 840 328)
-	(pt 840 336)
-)
-(connector
-	(pt 848 344)
-	(pt 696 344)
-)
-(connector
-	(pt 848 344)
-	(pt 848 352)
-)
-(connector
-	(pt 840 360)
-	(pt 696 360)
-)
-(connector
-	(pt 840 360)
-	(pt 840 368)
-)
-(connector
-	(pt 840 376)
-	(pt 696 376)
-)
-(connector
-	(pt 840 376)
-	(pt 840 392)
 )

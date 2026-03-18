@@ -1,13 +1,13 @@
 --------------------------------------------------------------------------------
--- Title         : Byte Register
--- Project       : Lab1
+-- Title         : N-bit Register
+-- Project       : Lab2
 -------------------------------------------------------------------------------
--- File          : byte_register.vhdl
+-- File          : nbit_register.vhdl
 -- Author        : Surya & Mann
 -------------------------------------------------------------------------------
--- Description : A byte register that uses 8 enabled D flip-flops. The register
---               has an active low reset, a load signal, a clock, an 8-bit input,
---               and an 8-bit output.
+-- Description : An n-bit register that uses enabled D flip-flops. The register
+--               has an active low reset, a load signal, a clock, an n-bit input,
+--               and an n-bit output.
 -------------------------------------------------------------------------------
 
 LIBRARY ieee;

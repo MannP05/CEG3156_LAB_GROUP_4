@@ -1,3 +1,14 @@
+--------------------------------------------------------------------------------
+-- Title         : 2-to-1 Multiplexer
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : mux_8to1.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A structural 8-bit 8-to-1 multiplexer. It routes one of the 
+--               eight input signals to the output based on the 3-bit select 
+--               signal (i_sel), implemented using basic logic gates.
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE work.mux_package.ALL;

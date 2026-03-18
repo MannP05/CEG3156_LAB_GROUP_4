@@ -1,40 +1,38 @@
-library ieee;
-use ieee.std_logic_1164.all;
+-- ============================================================
+-- CEG 3156 Lab 2 - Instruction Memory
+-- ============================================================
 
-library altera_mf;
-use altera_mf.altera_mf_components.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 
-entity instruction_memory is
-    port (
-        clock   : in  std_logic;  
-        read_address : in  std_logic_vector(7 downto 0);
-        instruction    : out std_logic_vector(31 downto 0)
+LIBRARY lpm;
+USE lpm.lpm_components.ALL;
+
+ENTITY instruction_memory IS
+    PORT(
+        address : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);   -- fed from pc_next
+        clock   : IN  STD_LOGIC;
+        q       : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
-end entity;
+END instruction_memory;
 
-architecture structural of instruction_memory is
-begin
-    rom_inst : altsyncram
-        generic map (
-            operation_mode         => "ROM",
-            width_a                => 32,
-            widthad_a              => 8,
-            numwords_a             => 256,
-            init_file              => "instruction_memory.mif",
-            outdata_reg_a          => "UNREGISTERED",  -- no extra output register
-            address_aclr_a         => "NONE",
-            intended_device_family => "Cyclone IV E"
+ARCHITECTURE structural OF instruction_memory IS
+BEGIN
+
+    ROM_inst : lpm_rom
+        GENERIC MAP(
+            LPM_WIDTH           => 32,
+            LPM_WIDTHAD         => 8,
+            LPM_NUMWORDS        => 256,
+            LPM_FILE            => "instruction_memory.mif",
+            LPM_ADDRESS_CONTROL => "REGISTERED",    -- required for Cyclone IV E
+            LPM_OUTDATA         => "UNREGISTERED",  -- combinatorial output
+            LPM_TYPE            => "LPM_ROM"
         )
-        port map (
-            clock0    => clock,
-            address_a => read_address,
-            q_a       => instruction,
-            -- Tie off unused ports
-            data_a    => (others => '0'),
-            wren_a    => '0',
-            rden_a    => '1',
-            aclr0     => '0',
-            aclr1     => '0',
-            clocken0  => '1'
+        PORT MAP(
+            address => address,
+            inclock => clock,
+            q       => q
         );
-end architecture;
+
+END structural;

@@ -1,3 +1,15 @@
+--------------------------------------------------------------------------------
+-- Title         : ALU Control
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : ALU_control.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : An ALU control unit that determines the specific operation 
+--               to be performed by the ALU. It takes a 2-bit ALU_Op signal 
+--               and a 6-bit instruction funct field as inputs, and generates 
+--               a 3-bit Operation control signal using combinational logic.
+-------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 
