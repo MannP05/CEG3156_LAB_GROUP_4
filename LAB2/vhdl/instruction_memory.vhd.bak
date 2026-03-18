@@ -1,0 +1,51 @@
+-- ============================================================
+-- CEG 3156 Lab 2 - Instruction Memory
+-- LPM_ROM wrapper: 256 x 32-bit, unregistered (combinatorial)
+--
+-- Target: Cyclone IV E, Quartus II 13.1
+-- Megafunction: lpm_rom from Altera lpm library
+--
+-- LPM_ADDRESS_CONTROL = "UNREGISTERED" -> combinatorial address decode
+-- LPM_OUTDATA         = "UNREGISTERED" -> combinatorial output
+-- Both settings required for single-cycle processor simulation.
+--
+-- Port mapping in top-level:
+--   address <- pc_current (8-bit byte address, PC fed directly)
+--   clock   <- GClock
+--   q       -> instruction (32-bit instruction word)
+-- ============================================================
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+LIBRARY lpm;
+USE lpm.lpm_components.ALL;
+
+ENTITY instruction_memory IS
+    PORT(
+        address : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);   -- 8-bit byte address (from PC)
+        clock   : IN  STD_LOGIC;                       -- GClock (unused in UNREGISTERED mode)
+        q       : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)   -- 32-bit instruction output
+    );
+END instruction_memory;
+
+ARCHITECTURE structural OF instruction_memory IS
+BEGIN
+
+    ROM_inst : lpm_rom
+        GENERIC MAP(
+            LPM_WIDTH           => 32,          -- 32-bit wide data
+            LPM_WIDTHAD         => 8,           -- 8-bit address (256 locations)
+            LPM_NUMWORDS        => 256,          -- 256 words
+            LPM_FILE            => "instruction_memory.mif",  -- initialization file
+            LPM_ADDRESS_CONTROL => "UNREGISTERED",   -- combinatorial address
+            LPM_OUTDATA         => "UNREGISTERED",   -- combinatorial output
+            LPM_TYPE            => "LPM_ROM"
+        )
+        PORT MAP(
+            address => address,
+            q       => q
+            -- inclock and outclock omitted: UNREGISTERED mode does not need them
+        );
+
+END structural;
