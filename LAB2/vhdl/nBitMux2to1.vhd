@@ -1,16 +1,3 @@
---------------------------------------------------------------------------------
--- Title         : N-bit Mux2to1
--- Project       : Lab2
--------------------------------------------------------------------------------
--- File          : nBitMux2to1.vhdl
--- Author        : Surya & Mann
--------------------------------------------------------------------------------
--- Description : A parameterized structural n-bit 2-to-1 multiplexer. It uses an 
--- array of one-bit 2-to-1 multiplexers to select between two n-bit input vectors 
--- (i_d0 and i_d1) based on the select signal (i_sel) and outputs the selected n-bit 
---vector (o_q).
--------------------------------------------------------------------------------
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

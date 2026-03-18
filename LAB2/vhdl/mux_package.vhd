@@ -2,19 +2,7 @@
 -- https://docs.amd.com/r/en-US/ug901-vivado-synthesis/Defining-Your-Own-VHDL-Packages
 -- https://www.youtube.com/watch?v=PUC2qvSddXA&list=PLitM9dOPMFEdGUXPxIT5YzKmns7kwAmKo 
 
--- this is probably allowed. 
---------------------------------------------------------------------------------
--- Title         : Mux Package
--- Project       : Lab2
--------------------------------------------------------------------------------
--- File          : mux_package.vhdl
--- Author        : Surya & Mann
--------------------------------------------------------------------------------
--- Description : A VHDL package defining custom data types for the project. 
---               It declares 'bus_array_8', an array of eight 8-bit standard 
---               logic vectors. This custom type improves code readability 
---               and allows for clean type reuse across multiple files.
--------------------------------------------------------------------------------
+-- this is probably allowed. This make the code more readable and easier to understand. It also allows us to use the same type in multiple files without having to redefine it each time. We can just import the package and use the type.
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;

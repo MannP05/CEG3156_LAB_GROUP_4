@@ -1,6 +1,17 @@
 -- ============================================================
 -- CEG 3156 Lab 2 - Data Memory Initialization File
 -- 256 x 8-bit (addresses 0x00 to 0xFF)
+--
+-- ADDRESS_RADIX = HEX
+-- DATA_RADIX    = HEX
+--
+-- Initial values required by the benchmark program:
+--   mem[0x00] = 0x55  (loaded into $2 by lw $2, 0)
+--   mem[0x01] = 0xAA  (loaded into $3 by lw $3, 1)
+--
+-- Addresses written during benchmark execution:
+--   mem[0x03] <- sw $4, 3  (result of or/sub)
+--   mem[0x04] <- sw $1, 4  (result of add = 0xFF)
 -- ============================================================
 
 DEPTH = 256;

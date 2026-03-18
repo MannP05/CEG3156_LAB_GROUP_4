@@ -1,15 +1,3 @@
---------------------------------------------------------------------------------
--- Title         : 5-to-32 Decoder
--- Project       : Lab2
--------------------------------------------------------------------------------
--- File          : decoder_5to32.vhdl
--- Author        : Surya & Mann
--------------------------------------------------------------------------------
--- Description : A structural 5-to-32 line decoder with an active-high enable. 
---               It takes a 5-bit address input and asserts exactly one of the 
---               32 output lines corresponding to the address value, provided 
---               the enable signal is high.
--------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

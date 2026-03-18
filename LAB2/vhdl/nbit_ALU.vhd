@@ -1,17 +1,3 @@
---------------------------------------------------------------------------------
--- Title         : N-bit ALU
--- Project       : Lab2
--------------------------------------------------------------------------------
--- File          : nbit_ALU.vhdl
--- Author        : Surya & Mann
--------------------------------------------------------------------------------
--- Description : An n-bit parameterized Arithmetic Logic Unit (ALU) that 
---               performs bitwise AND, bitwise OR, addition, subtraction, 
---               and set-on-less-than (SLT) operations. It uses a 3-bit 
---               ALU control signal to select the operation and outputs an 
---               n-bit result along with a Zero flag indicating if the 
---               result is zero.
--------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

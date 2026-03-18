@@ -1,6 +1,23 @@
 -- ============================================================
 -- CEG 3156 Lab 2 - Data Memory
+-- LPM_RAM_DQ wrapper: 256 x 8-bit
 --
+-- Target: Cyclone IV E, Quartus II 13.1
+-- Megafunction: lpm_ram_dq from Altera lpm library
+--
+-- Read  port:  combinatorial (UNREGISTERED) - required for single-cycle lw
+-- Write port:  registered on rising edge of inclock - required for single-cycle sw
+--
+-- LPM_INDATA          = "REGISTERED"    -> write data latched on clock edge
+-- LPM_ADDRESS_CONTROL = "REGISTERED"    -> address latched on clock edge (write)
+-- LPM_OUTDATA         = "UNREGISTERED"  -> read data appears combinatorially
+--
+-- Port mapping in top-level:
+--   address <- alu_result     (8-bit computed load/store address)
+--   clock   <- GClock
+--   data    <- read_data2     (rt register content, for sw)
+--   wren    <- ctrl_MemWrite  (write enable, from control unit)
+--   q       -> mem_read_data  (8-bit data read, for lw)
 -- ============================================================
 
 LIBRARY ieee;

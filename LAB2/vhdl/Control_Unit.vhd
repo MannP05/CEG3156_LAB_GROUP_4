@@ -1,15 +1,13 @@
---------------------------------------------------------------------------------
--- Title         : Main Control Unit
--- Project       : Lab2
--------------------------------------------------------------------------------
--- File          : control_unit.vhdl
--- Author        : Surya & Mann
--------------------------------------------------------------------------------
--- Description : A structural main control unit that decodes a 6-bit opcode 
---               to generate datapath control signals (RegDst, ALUSrc, MemtoReg, 
---               RegWrite, MemRead, MemWrite, Branch, Jump, and ALUOp). It 
---               supports R-format, lw, sw, beq, and j instructions.
--------------------------------------------------------------------------------
+-- ============================================================
+-- CEG 3156 Lab 2 - Main Control Unit
+--
+-- Supported opcodes:
+--   R-format : 000000  -> RegDst=1, RegWrite=1, ALUOp=10
+--   lw       : 100011  -> ALUSrc=1, MemtoReg=1, RegWrite=1, MemRead=1, ALUOp=00
+--   sw       : 101011  -> ALUSrc=1, MemWrite=1, ALUOp=00
+--   beq      : 000100  -> Branch=1, ALUOp=01
+--   j        : 000010  -> Jump=1
+-- ============================================================
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
