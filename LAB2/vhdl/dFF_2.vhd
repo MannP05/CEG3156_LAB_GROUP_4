@@ -1,3 +1,14 @@
+--------------------------------------------------------------------------------
+-- Title         : D Flip-Flop
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : dFF_2.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A positive-edge triggered D flip-flop. It takes a single 
+--               data input and a clock signal, and provides both the true 
+--               output (o_q) and the complemented output (o_qBar).
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

@@ -1,18 +1,5 @@
 -- ============================================================
 -- CEG 3156 Lab 2 - Instruction Memory
--- LPM_ROM: 256 x 32-bit, synchronous address (Cyclone IV E)
---
--- Target: Cyclone IV E, Quartus II 13.1
---
--- FIX: Cyclone IV E only supports synchronous ROM.
---   LPM_ADDRESS_CONTROL = "REGISTERED" -> address latched on inclock
---   LPM_OUTDATA         = "UNREGISTERED" -> data output combinatorial
---
---
--- Port mapping in top-level:
---   address <- pc_next   (fed BEFORE the clock edge)
---   clock   <- GClock
---   q       -> instruction
 -- ============================================================
 
 LIBRARY ieee;

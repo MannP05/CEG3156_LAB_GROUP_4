@@ -1,3 +1,16 @@
+--------------------------------------------------------------------------------
+-- Title         : N-bit Adder/Subtractor
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : nBitAddSubUnit.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A parameterized n-bit ripple-carry adder and subtractor. 
+--               It instantiates 1-bit adder/subtractor components in a chain 
+--               based on the generic width 'n'. The i_OpFlag signal determines 
+--               the operation: '0' for addition and '1' for two's complement 
+--               subtraction (also acting as the initial carry-in).
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

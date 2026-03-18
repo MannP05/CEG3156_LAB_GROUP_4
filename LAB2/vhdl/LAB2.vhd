@@ -1,11 +1,16 @@
--- ============================================================
--- CEG 3156 Lab 2 - Single-Cycle RISC Processor
-
---
--- Target   : Cyclone IV E, Quartus II 13.1
--- Datapath : 8-bit data, 32-bit instructions
--- Registers: 8 x 8-bit (3-bit addressing)
--- ============================================================
+--------------------------------------------------------------------------------
+-- Title         : Top-Level Single-Cycle MIPS Processor
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : lab2.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A structural top-level entity integrating the datapath and 
+--               control unit of an 8-bit data, 32-bit instruction single-cycle 
+--               MIPS processor. It instantiates and connects all components 
+--               for the fetch, decode, execute, memory, and write-back stages, 
+--               and includes a debugging multiplexer to output internal signals.
+-------------------------------------------------------------------------------
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -50,7 +55,6 @@ ARCHITECTURE structural OF LAB2 IS
         );
     END COMPONENT;
 
-    -- Address port must receive pc_next (see file header)
     COMPONENT instruction_memory IS
         PORT(
             address : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -97,7 +101,6 @@ ARCHITECTURE structural OF LAB2 IS
         );
     END COMPONENT;
 
-    -- CORRECTED sign_extended: o(j) <= i(j), NOT i(15) for all bits
     COMPONENT sign_extended IS
         PORT(
             i : IN  STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -178,7 +181,6 @@ ARCHITECTURE structural OF LAB2 IS
     SIGNAL carry_pc4      : STD_LOGIC;
     SIGNAL carry_branch   : STD_LOGIC;
 
-    -- Output mux tree intermediates (Table 2, 3-stage 8-input mux)
     SIGNAL ctrl_info      : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL mux_s1_01      : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL mux_s1_23      : STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -188,10 +190,6 @@ ARCHITECTURE structural OF LAB2 IS
     SIGNAL mux_s2_4567    : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
 BEGIN
-
-    -- ==========================================================
-    -- FETCH STAGE
-    -- ==========================================================
 
     U_PC : pc_reg
         PORT MAP(
@@ -211,8 +209,6 @@ BEGIN
             o_Sum      => pc_plus4
         );
 
-    -- KEY CHANGE: address fed from pc_next so ROM internal register
-    -- and PC register both clock the same value simultaneously.
     U_IMEM : instruction_memory
         PORT MAP(
             address => pc_next,
@@ -221,10 +217,6 @@ BEGIN
         );
 
     InstructionOut <= instruction;
-
-    -- ==========================================================
-    -- DECODE STAGE
-    -- ==========================================================
 
     U_CTRL : Control_Unit
         PORT MAP(
@@ -240,9 +232,6 @@ BEGIN
             ALUOp    => ctrl_ALUOp
         );
 
-    -- RegDst mux [3-bit]:
-    --   '0' -> rt = instruction[18:16]  (I-type destination)
-    --   '1' -> rd = instruction[13:11]  (R-type destination)
     U_MUX_REGDST : nBitMux2to1
         GENERIC MAP(n => 3)
         PORT MAP(
@@ -271,10 +260,6 @@ BEGIN
             o => sign_ext_out
         );
 
-    -- ==========================================================
-    -- EXECUTE STAGE
-    -- ==========================================================
-
     U_ALU_CTRL : ALU_control
         PORT MAP(
             ALU_Op    => ctrl_ALUOp,
@@ -282,9 +267,6 @@ BEGIN
             Operation => alu_ctrl
         );
 
-    -- ALUSrc mux [8-bit]:
-    --   '0' -> read_data2   (R-type / branch)
-    --   '1' -> sign_ext_out (lw / sw immediate)
     U_MUX_ALUSRC : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -304,9 +286,6 @@ BEGIN
             o_Zero       => alu_zero
         );
 
-    -- ==========================================================
-    -- MEMORY STAGE
-    -- ==========================================================
 
     U_DMEM : data_memory
         PORT MAP(
@@ -317,13 +296,7 @@ BEGIN
             q       => mem_read_data
         );
 
-    -- ==========================================================
-    -- WRITE-BACK STAGE
-    -- ==========================================================
 
-    -- MemtoReg mux [8-bit]:
-    --   '0' -> alu_result    (R-type)
-    --   '1' -> mem_read_data (lw)
     U_MUX_MEMTOREG : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -333,12 +306,6 @@ BEGIN
             o_q   => reg_write_data
         );
 
-    -- ==========================================================
-    -- BRANCH AND JUMP LOGIC
-    -- Shift-by-2 done by wiring (no logic gates needed).
-    -- ==========================================================
-
-    -- branch_offset = sign_ext_out[5:0] & "00"
     branch_offset(0) <= '0';
     branch_offset(1) <= '0';
     branch_offset(2) <= sign_ext_out(0);
@@ -358,12 +325,8 @@ BEGIN
             o_Sum      => branch_target
         );
 
-    -- take_branch: AND gate  (BEQ taken when Branch=1 AND Zero=1)
     take_branch <= ctrl_Branch AND alu_zero;
 
-    -- Branch mux [8-bit]:
-    --   '0' -> pc_plus4      (not taken)
-    --   '1' -> branch_target (taken)
     U_MUX_BRANCH : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -373,7 +336,6 @@ BEGIN
             o_q   => pc_branch_out
         );
 
-    -- jump_addr = instruction[5:0] & "00"
     jump_addr(0) <= '0';
     jump_addr(1) <= '0';
     jump_addr(2) <= instruction(0);
@@ -383,9 +345,6 @@ BEGIN
     jump_addr(6) <= instruction(4);
     jump_addr(7) <= instruction(5);
 
-    -- Jump mux [8-bit]:
-    --   '0' -> pc_branch_out  (sequential or branch)
-    --   '1' -> jump_addr      (unconditional jump)
     U_MUX_JUMP : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -395,25 +354,6 @@ BEGIN
             o_q   => pc_next
         );
 
-    -- ==========================================================
-    -- OUTPUT MUX  (Table 2 - fully structural 3-stage tree)
-    --
-    -- ValueSelect[2:0] -> MuxOut[7:0]:
-    --   000 -> pc_current      Stage 1: select on VS(0)
-    --   001 -> alu_result        mux_s1_01: pc_current vs alu_result
-    --   010 -> read_data1        mux_s1_23: read_data1 vs read_data2
-    --   011 -> read_data2        mux_s1_45: reg_write_data vs ctrl_info
-    --   100 -> reg_write_data    mux_s1_67: ctrl_info vs ctrl_info
-    --   1xx -> ctrl_info
-    --                          Stage 2: select on VS(1)
-    --                            mux_s2_0123: s1_01 vs s1_23
-    --                            mux_s2_4567: s1_45 vs s1_67
-    --
-    --                          Stage 3: select on VS(2) -> MuxOut
-    -- ==========================================================
-
-    -- Pack control signals into ctrl_info bus (wire connections only)
-    -- '0' & RegDst & Jump & MemRead & MemtoReg & ALUOp[1:0] & ALUSrc
     ctrl_info(7) <= '0';
     ctrl_info(6) <= ctrl_RegDst;
     ctrl_info(5) <= ctrl_Jump;
@@ -423,7 +363,6 @@ BEGIN
     ctrl_info(1) <= ctrl_ALUOp(0);
     ctrl_info(0) <= ctrl_ALUSrc;
 
-    -- Stage 1 (4 muxes, select = ValueSelect(0))
     U_OMUX_S1_01 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -451,7 +390,6 @@ BEGIN
             o_q   => mux_s1_45
         );
 
-    -- ValueSelect 110 and 111 both map to ctrl_info
     U_OMUX_S1_67 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -461,7 +399,6 @@ BEGIN
             o_q   => mux_s1_67
         );
 
-    -- Stage 2 (2 muxes, select = ValueSelect(1))
     U_OMUX_S2_0123 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -480,7 +417,6 @@ BEGIN
             o_q   => mux_s2_4567
         );
 
-    -- Stage 3 (1 mux, select = ValueSelect(2)) -> drives MuxOut directly
     U_OMUX_S3 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -491,7 +427,7 @@ BEGIN
         );
 
     -- ==========================================================
-    -- OUTPUT PORT ASSIGNMENTS (direct wire connections)
+    -- OUTPUT PORT ASSIGNMENTS
     -- ==========================================================
     BranchOut   <= ctrl_Branch;
     ZeroOut     <= alu_zero;

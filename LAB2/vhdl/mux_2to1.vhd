@@ -1,3 +1,15 @@
+--------------------------------------------------------------------------------
+-- Title         : 2-to-1 Multiplexer
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : mux_2to1.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A structural 1-bit 2-to-1 multiplexer. It routes input i_a 
+--               to the output when the select signal (i_sel) is '0', and 
+--               input i_b to the output when the select signal is '1', 
+--               implemented using basic logic gates.
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 

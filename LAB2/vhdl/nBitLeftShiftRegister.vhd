@@ -1,3 +1,15 @@
+--------------------------------------------------------------------------------
+-- Title         : N-bit Left Shift Register
+-- Project       : Lab2
+-------------------------------------------------------------------------------
+-- File          : nBitLeftShiftRegister.vhdl
+-- Author        : Surya & Mann
+-------------------------------------------------------------------------------
+-- Description : A parameterized structural n-bit serial-in, parallel-out 
+--               left shift register. It is built using a chain of D flip-flops 
+--               with an active-low reset. It shifts the 1-bit input (i_Value) 
+--               left on each clock cycle and provides an n-bit parallel output.
+-------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
