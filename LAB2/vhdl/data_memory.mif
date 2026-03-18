@@ -1,26 +1,32 @@
--- Copyright (C) 1991-2013 Altera Corporation
--- Your use of Altera Corporation's design tools, logic functions 
--- and other software and tools, and its AMPP partner logic 
--- functions, and any output files from any of the foregoing 
--- (including device programming or simulation files), and any 
--- associated documentation or information are expressly subject 
--- to the terms and conditions of the Altera Program License 
--- Subscription Agreement, Altera MegaCore Function License 
--- Agreement, or other applicable license agreement, including, 
--- without limitation, that your use is for the sole purpose of 
--- programming logic devices manufactured by Altera and sold by 
--- Altera or its authorized distributors.  Please refer to the 
--- applicable agreement for further details.
-
--- Quartus II generated Memory Initialization File (.mif)
+-- ============================================================
+-- CEG 3156 Lab 2 - Data Memory Initialization File
+-- 256 x 8-bit (addresses 0x00 to 0xFF)
+--
+-- ADDRESS_RADIX = HEX
+-- DATA_RADIX    = HEX
+--
+-- Initial values required by the benchmark program:
+--   mem[0x00] = 0x55  (loaded into $2 by lw $2, 0)
+--   mem[0x01] = 0xAA  (loaded into $3 by lw $3, 1)
+--
+-- Addresses written during benchmark execution:
+--   mem[0x03] <- sw $4, 3  (result of or/sub)
+--   mem[0x04] <- sw $1, 4  (result of add = 0xFF)
+-- ============================================================
 
 DEPTH = 256;
 WIDTH = 8;
 ADDRESS_RADIX = HEX;
 DATA_RADIX = HEX;
+
 CONTENT
 BEGIN
-[00..FF]: 00;
-00: 55;
-01: AA;
+
+-- Default: all zeros
+[00..FF] : 00;
+
+-- Initial values for benchmark program
+00 : 55;
+01 : AA;
+
 END;

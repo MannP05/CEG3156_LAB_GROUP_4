@@ -32,7 +32,7 @@ HEADER
 	GRID_DUTY_CYCLE = 50;
 }
 
-SIGNAL("BranchOut")
+SIGNAL("branch")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -42,7 +42,7 @@ SIGNAL("BranchOut")
 	PARENT = "";
 }
 
-SIGNAL("Clock")
+SIGNAL("Clk")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -52,7 +52,7 @@ SIGNAL("Clock")
 	PARENT = "";
 }
 
-SIGNAL("InstructionOut")
+SIGNAL("Instruction")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = BUS;
@@ -62,327 +62,327 @@ SIGNAL("InstructionOut")
 	PARENT = "";
 }
 
-SIGNAL("InstructionOut[31]")
+SIGNAL("Instruction[31]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[30]")
+SIGNAL("Instruction[30]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[29]")
+SIGNAL("Instruction[29]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[28]")
+SIGNAL("Instruction[28]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[27]")
+SIGNAL("Instruction[27]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[26]")
+SIGNAL("Instruction[26]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[25]")
+SIGNAL("Instruction[25]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[24]")
+SIGNAL("Instruction[24]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[23]")
+SIGNAL("Instruction[23]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[22]")
+SIGNAL("Instruction[22]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[21]")
+SIGNAL("Instruction[21]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[20]")
+SIGNAL("Instruction[20]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[19]")
+SIGNAL("Instruction[19]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[18]")
+SIGNAL("Instruction[18]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[17]")
+SIGNAL("Instruction[17]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[16]")
+SIGNAL("Instruction[16]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[15]")
+SIGNAL("Instruction[15]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[14]")
+SIGNAL("Instruction[14]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[13]")
+SIGNAL("Instruction[13]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[12]")
+SIGNAL("Instruction[12]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[11]")
+SIGNAL("Instruction[11]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[10]")
+SIGNAL("Instruction[10]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[9]")
+SIGNAL("Instruction[9]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[8]")
+SIGNAL("Instruction[8]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[7]")
+SIGNAL("Instruction[7]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[6]")
+SIGNAL("Instruction[6]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[5]")
+SIGNAL("Instruction[5]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[4]")
+SIGNAL("Instruction[4]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[3]")
+SIGNAL("Instruction[3]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[2]")
+SIGNAL("Instruction[2]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[1]")
+SIGNAL("Instruction[1]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("InstructionOut[0]")
+SIGNAL("Instruction[0]")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
 	WIDTH = 1;
 	LSB_INDEX = -1;
 	DIRECTION = OUTPUT;
-	PARENT = "InstructionOut";
+	PARENT = "Instruction";
 }
 
-SIGNAL("MemWrite")
+SIGNAL("memwrite")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -482,7 +482,7 @@ SIGNAL("MuxOut[0]")
 	PARENT = "MuxOut";
 }
 
-SIGNAL("RegWrite")
+SIGNAL("regwrite")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -492,7 +492,7 @@ SIGNAL("RegWrite")
 	PARENT = "";
 }
 
-SIGNAL("Reset")
+SIGNAL("Rest")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -542,7 +542,7 @@ SIGNAL("ValueSelect[0]")
 	PARENT = "ValueSelect";
 }
 
-SIGNAL("Zero")
+SIGNAL("zero")
 {
 	VALUE_TYPE = NINE_LEVEL_BIT;
 	SIGNAL_TYPE = SINGLE_BIT;
@@ -552,7 +552,7 @@ SIGNAL("Zero")
 	PARENT = "";
 }
 
-TRANSITION_LIST("BranchOut")
+TRANSITION_LIST("branch")
 {
 	NODE
 	{
@@ -561,7 +561,7 @@ TRANSITION_LIST("BranchOut")
 	}
 }
 
-TRANSITION_LIST("Clock")
+TRANSITION_LIST("Clk")
 {
 	NODE
 	{
@@ -575,7 +575,7 @@ TRANSITION_LIST("Clock")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[31]")
+TRANSITION_LIST("Instruction[31]")
 {
 	NODE
 	{
@@ -584,7 +584,7 @@ TRANSITION_LIST("InstructionOut[31]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[30]")
+TRANSITION_LIST("Instruction[30]")
 {
 	NODE
 	{
@@ -593,7 +593,7 @@ TRANSITION_LIST("InstructionOut[30]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[29]")
+TRANSITION_LIST("Instruction[29]")
 {
 	NODE
 	{
@@ -602,7 +602,7 @@ TRANSITION_LIST("InstructionOut[29]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[28]")
+TRANSITION_LIST("Instruction[28]")
 {
 	NODE
 	{
@@ -611,7 +611,7 @@ TRANSITION_LIST("InstructionOut[28]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[27]")
+TRANSITION_LIST("Instruction[27]")
 {
 	NODE
 	{
@@ -620,7 +620,7 @@ TRANSITION_LIST("InstructionOut[27]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[26]")
+TRANSITION_LIST("Instruction[26]")
 {
 	NODE
 	{
@@ -629,7 +629,7 @@ TRANSITION_LIST("InstructionOut[26]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[25]")
+TRANSITION_LIST("Instruction[25]")
 {
 	NODE
 	{
@@ -638,7 +638,7 @@ TRANSITION_LIST("InstructionOut[25]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[24]")
+TRANSITION_LIST("Instruction[24]")
 {
 	NODE
 	{
@@ -647,7 +647,7 @@ TRANSITION_LIST("InstructionOut[24]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[23]")
+TRANSITION_LIST("Instruction[23]")
 {
 	NODE
 	{
@@ -656,7 +656,7 @@ TRANSITION_LIST("InstructionOut[23]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[22]")
+TRANSITION_LIST("Instruction[22]")
 {
 	NODE
 	{
@@ -665,7 +665,7 @@ TRANSITION_LIST("InstructionOut[22]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[21]")
+TRANSITION_LIST("Instruction[21]")
 {
 	NODE
 	{
@@ -674,7 +674,7 @@ TRANSITION_LIST("InstructionOut[21]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[20]")
+TRANSITION_LIST("Instruction[20]")
 {
 	NODE
 	{
@@ -683,7 +683,7 @@ TRANSITION_LIST("InstructionOut[20]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[19]")
+TRANSITION_LIST("Instruction[19]")
 {
 	NODE
 	{
@@ -692,7 +692,7 @@ TRANSITION_LIST("InstructionOut[19]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[18]")
+TRANSITION_LIST("Instruction[18]")
 {
 	NODE
 	{
@@ -701,7 +701,7 @@ TRANSITION_LIST("InstructionOut[18]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[17]")
+TRANSITION_LIST("Instruction[17]")
 {
 	NODE
 	{
@@ -710,7 +710,7 @@ TRANSITION_LIST("InstructionOut[17]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[16]")
+TRANSITION_LIST("Instruction[16]")
 {
 	NODE
 	{
@@ -719,7 +719,7 @@ TRANSITION_LIST("InstructionOut[16]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[15]")
+TRANSITION_LIST("Instruction[15]")
 {
 	NODE
 	{
@@ -728,7 +728,7 @@ TRANSITION_LIST("InstructionOut[15]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[14]")
+TRANSITION_LIST("Instruction[14]")
 {
 	NODE
 	{
@@ -737,7 +737,7 @@ TRANSITION_LIST("InstructionOut[14]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[13]")
+TRANSITION_LIST("Instruction[13]")
 {
 	NODE
 	{
@@ -746,7 +746,7 @@ TRANSITION_LIST("InstructionOut[13]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[12]")
+TRANSITION_LIST("Instruction[12]")
 {
 	NODE
 	{
@@ -755,7 +755,7 @@ TRANSITION_LIST("InstructionOut[12]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[11]")
+TRANSITION_LIST("Instruction[11]")
 {
 	NODE
 	{
@@ -764,7 +764,7 @@ TRANSITION_LIST("InstructionOut[11]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[10]")
+TRANSITION_LIST("Instruction[10]")
 {
 	NODE
 	{
@@ -773,7 +773,7 @@ TRANSITION_LIST("InstructionOut[10]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[9]")
+TRANSITION_LIST("Instruction[9]")
 {
 	NODE
 	{
@@ -782,7 +782,7 @@ TRANSITION_LIST("InstructionOut[9]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[8]")
+TRANSITION_LIST("Instruction[8]")
 {
 	NODE
 	{
@@ -791,7 +791,7 @@ TRANSITION_LIST("InstructionOut[8]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[7]")
+TRANSITION_LIST("Instruction[7]")
 {
 	NODE
 	{
@@ -800,7 +800,7 @@ TRANSITION_LIST("InstructionOut[7]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[6]")
+TRANSITION_LIST("Instruction[6]")
 {
 	NODE
 	{
@@ -809,7 +809,7 @@ TRANSITION_LIST("InstructionOut[6]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[5]")
+TRANSITION_LIST("Instruction[5]")
 {
 	NODE
 	{
@@ -818,7 +818,7 @@ TRANSITION_LIST("InstructionOut[5]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[4]")
+TRANSITION_LIST("Instruction[4]")
 {
 	NODE
 	{
@@ -827,7 +827,7 @@ TRANSITION_LIST("InstructionOut[4]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[3]")
+TRANSITION_LIST("Instruction[3]")
 {
 	NODE
 	{
@@ -836,7 +836,7 @@ TRANSITION_LIST("InstructionOut[3]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[2]")
+TRANSITION_LIST("Instruction[2]")
 {
 	NODE
 	{
@@ -845,7 +845,7 @@ TRANSITION_LIST("InstructionOut[2]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[1]")
+TRANSITION_LIST("Instruction[1]")
 {
 	NODE
 	{
@@ -854,7 +854,7 @@ TRANSITION_LIST("InstructionOut[1]")
 	}
 }
 
-TRANSITION_LIST("InstructionOut[0]")
+TRANSITION_LIST("Instruction[0]")
 {
 	NODE
 	{
@@ -863,7 +863,7 @@ TRANSITION_LIST("InstructionOut[0]")
 	}
 }
 
-TRANSITION_LIST("MemWrite")
+TRANSITION_LIST("memwrite")
 {
 	NODE
 	{
@@ -944,7 +944,7 @@ TRANSITION_LIST("MuxOut[0]")
 	}
 }
 
-TRANSITION_LIST("RegWrite")
+TRANSITION_LIST("regwrite")
 {
 	NODE
 	{
@@ -953,7 +953,7 @@ TRANSITION_LIST("RegWrite")
 	}
 }
 
-TRANSITION_LIST("Reset")
+TRANSITION_LIST("Rest")
 {
 	NODE
 	{
@@ -985,11 +985,11 @@ TRANSITION_LIST("ValueSelect[0]")
 	NODE
 	{
 		REPEAT = 1;
-		LEVEL 1 FOR 1000.0;
+		LEVEL 0 FOR 1000.0;
 	}
 }
 
-TRANSITION_LIST("Zero")
+TRANSITION_LIST("zero")
 {
 	NODE
 	{
@@ -1000,7 +1000,7 @@ TRANSITION_LIST("Zero")
 
 DISPLAY_LINE
 {
-	CHANNEL = "BranchOut";
+	CHANNEL = "branch";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 0;
@@ -1009,7 +1009,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Clock";
+	CHANNEL = "Clk";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 1;
@@ -1018,7 +1018,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut";
+	CHANNEL = "Instruction";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 2;
@@ -1028,7 +1028,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[31]";
+	CHANNEL = "Instruction[31]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 3;
@@ -1038,7 +1038,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[30]";
+	CHANNEL = "Instruction[30]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 4;
@@ -1048,7 +1048,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[29]";
+	CHANNEL = "Instruction[29]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 5;
@@ -1058,7 +1058,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[28]";
+	CHANNEL = "Instruction[28]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 6;
@@ -1068,7 +1068,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[27]";
+	CHANNEL = "Instruction[27]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 7;
@@ -1078,7 +1078,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[26]";
+	CHANNEL = "Instruction[26]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 8;
@@ -1088,7 +1088,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[25]";
+	CHANNEL = "Instruction[25]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 9;
@@ -1098,7 +1098,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[24]";
+	CHANNEL = "Instruction[24]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 10;
@@ -1108,7 +1108,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[23]";
+	CHANNEL = "Instruction[23]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 11;
@@ -1118,7 +1118,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[22]";
+	CHANNEL = "Instruction[22]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 12;
@@ -1128,7 +1128,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[21]";
+	CHANNEL = "Instruction[21]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 13;
@@ -1138,7 +1138,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[20]";
+	CHANNEL = "Instruction[20]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 14;
@@ -1148,7 +1148,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[19]";
+	CHANNEL = "Instruction[19]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 15;
@@ -1158,7 +1158,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[18]";
+	CHANNEL = "Instruction[18]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 16;
@@ -1168,7 +1168,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[17]";
+	CHANNEL = "Instruction[17]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 17;
@@ -1178,7 +1178,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[16]";
+	CHANNEL = "Instruction[16]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 18;
@@ -1188,7 +1188,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[15]";
+	CHANNEL = "Instruction[15]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 19;
@@ -1198,7 +1198,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[14]";
+	CHANNEL = "Instruction[14]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 20;
@@ -1208,7 +1208,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[13]";
+	CHANNEL = "Instruction[13]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 21;
@@ -1218,7 +1218,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[12]";
+	CHANNEL = "Instruction[12]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 22;
@@ -1228,7 +1228,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[11]";
+	CHANNEL = "Instruction[11]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 23;
@@ -1238,7 +1238,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[10]";
+	CHANNEL = "Instruction[10]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 24;
@@ -1248,7 +1248,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[9]";
+	CHANNEL = "Instruction[9]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 25;
@@ -1258,7 +1258,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[8]";
+	CHANNEL = "Instruction[8]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 26;
@@ -1268,7 +1268,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[7]";
+	CHANNEL = "Instruction[7]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 27;
@@ -1278,7 +1278,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[6]";
+	CHANNEL = "Instruction[6]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 28;
@@ -1288,7 +1288,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[5]";
+	CHANNEL = "Instruction[5]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 29;
@@ -1298,7 +1298,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[4]";
+	CHANNEL = "Instruction[4]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 30;
@@ -1308,7 +1308,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[3]";
+	CHANNEL = "Instruction[3]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 31;
@@ -1318,7 +1318,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[2]";
+	CHANNEL = "Instruction[2]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 32;
@@ -1328,7 +1328,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[1]";
+	CHANNEL = "Instruction[1]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 33;
@@ -1338,7 +1338,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "InstructionOut[0]";
+	CHANNEL = "Instruction[0]";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 34;
@@ -1348,7 +1348,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "MemWrite";
+	CHANNEL = "memwrite";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 35;
@@ -1447,7 +1447,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "RegWrite";
+	CHANNEL = "regwrite";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 45;
@@ -1456,7 +1456,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Reset";
+	CHANNEL = "Rest";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 46;
@@ -1505,7 +1505,7 @@ DISPLAY_LINE
 
 DISPLAY_LINE
 {
-	CHANNEL = "Zero";
+	CHANNEL = "zero";
 	EXPAND_STATUS = COLLAPSED;
 	RADIX = Binary;
 	TREE_INDEX = 51;
