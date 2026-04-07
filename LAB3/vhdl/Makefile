@@ -2,7 +2,7 @@ OBJ_DIR = obj
 ENTITY_DIR = entities
 OUTPUT_DIR = output
 TESTBENCH_DIR = tb
-ENTITY_NAME = tb_ALU
+ENTITY_NAME = tb_LAB3
 TEST_NAME = $(ENTITY_NAME)
 
 # Source files - packages first, then everything else

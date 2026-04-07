@@ -11,7 +11,7 @@ ENTITY dFF_2 IS
 END dFF_2;
 
 ARCHITECTURE rtl OF dFF_2 IS
-    SIGNAL int_q : STD_LOGIC;
+    SIGNAL int_q : STD_LOGIC := '0';  
 BEGIN
 
     oneBitRegister:

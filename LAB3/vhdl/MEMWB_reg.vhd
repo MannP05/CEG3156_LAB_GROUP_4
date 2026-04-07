@@ -23,7 +23,9 @@ ENTITY MEMWB_reg IS
         -- Data out
         o_MemReadData : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         o_ALUResult   : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-        o_WriteReg    : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
+        o_WriteReg    : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+        i_instruction : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+        o_instruction : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 END MEMWB_reg;
 

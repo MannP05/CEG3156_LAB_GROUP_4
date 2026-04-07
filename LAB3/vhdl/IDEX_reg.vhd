@@ -1,7 +1,8 @@
 -- ============================================================
 -- ID/EX Pipeline Register
 -- Stores: all control signals, PC+4, read data 1 & 2,
---         sign-extended immediate, rs/rt/rd register numbers
+--         sign-extended immediate, rs/rt/rd register numbers,
+--         and jump target address
 -- ============================================================
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -26,6 +27,7 @@ ENTITY IDEX_reg IS
         i_ReadData1  : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
         i_ReadData2  : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
         i_SignExt    : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+        i_JumpAddr   : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);  
         i_rs         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
         i_rt         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
         i_rd         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -45,10 +47,13 @@ ENTITY IDEX_reg IS
         o_ReadData1  : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         o_ReadData2  : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         o_SignExt    : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+        o_JumpAddr   : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);  
         o_rs         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
         o_rt         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
         o_rd         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-        o_funct      : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+        o_funct      : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
+        i_instruction : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+        o_instruction : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 END IDEX_reg;
 
@@ -104,10 +109,11 @@ BEGIN
     o_ALUOp <= int_aluop_q;
 
     -- ---- 8-bit data registers ----
-    U_PC4 : reg_8 PORT MAP(i_PC4,       '1', i_clock, int_reset, o_PC4);
-    U_RD1 : reg_8 PORT MAP(i_ReadData1, '1', i_clock, int_reset, o_ReadData1);
-    U_RD2 : reg_8 PORT MAP(i_ReadData2, '1', i_clock, int_reset, o_ReadData2);
-    U_SE  : reg_8 PORT MAP(i_SignExt,   '1', i_clock, int_reset, o_SignExt);
+    U_PC4  : reg_8 PORT MAP(i_PC4,       '1', i_clock, int_reset, o_PC4);
+    U_RD1  : reg_8 PORT MAP(i_ReadData1, '1', i_clock, int_reset, o_ReadData1);
+    U_RD2  : reg_8 PORT MAP(i_ReadData2, '1', i_clock, int_reset, o_ReadData2);
+    U_SE   : reg_8 PORT MAP(i_SignExt,   '1', i_clock, int_reset, o_SignExt);
+    U_JMPA : reg_8 PORT MAP(i_JumpAddr,  '1', i_clock, int_reset, o_JumpAddr); 
 
     -- ---- 3-bit register number FFs ----
     GEN_RS: FOR i IN 0 TO 2 GENERATE

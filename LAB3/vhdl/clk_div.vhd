@@ -34,7 +34,7 @@ ENTITY clk_div IS
 	(
 		clock_25Mhz				: IN	STD_LOGIC;
 		clock_1MHz				: OUT	STD_LOGIC;
-		clock_100KHz				: OUT	STD_LOGIC;
+		clock_100KHz			: OUT	STD_LOGIC;
 		clock_10KHz				: OUT	STD_LOGIC;
 		clock_1KHz				: OUT	STD_LOGIC;
 		clock_100Hz				: OUT	STD_LOGIC;

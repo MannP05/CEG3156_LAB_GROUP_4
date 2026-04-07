@@ -177,6 +177,7 @@ ARCHITECTURE structural OF LAB3 IS
             i_ReadData1  : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
             i_ReadData2  : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
             i_SignExt    : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
+            i_JumpAddr   : IN  STD_LOGIC_VECTOR(7 DOWNTO 0);
             i_rs         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
             i_rt         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
             i_rd         : IN  STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -194,6 +195,7 @@ ARCHITECTURE structural OF LAB3 IS
             o_ReadData1  : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             o_ReadData2  : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             o_SignExt    : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+            o_JumpAddr   : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
             o_rs         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
             o_rt         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
             o_rd         : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -280,111 +282,112 @@ ARCHITECTURE structural OF LAB3 IS
     -- ==========================================================
 
     -- ---------- IF Stage ----------
-    SIGNAL if_pc_current    : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL if_pc_next       : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL if_pc_plus4      : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL if_instruction   : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL if_carry_pc4     : STD_LOGIC;
-    SIGNAL if_pc_write      : STD_LOGIC;    -- from hazard unit
-
-    -- Mux before PC register
+    SIGNAL if_pc_current        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL if_pc_plus4          : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL if_instruction       : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL if_carry_pc4         : STD_LOGIC;
     SIGNAL if_pc_branch_or_seq  : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL if_pc_final          : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL pc_held              : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
     -- ---------- IF/ID Register outputs ----------
-    SIGNAL ifid_pc4         : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL ifid_instruction : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL ifid_stall       : STD_LOGIC;    -- from hazard unit (NOT PCWrite)
-    SIGNAL ifid_flush       : STD_LOGIC;    -- branch taken flush
+    SIGNAL ifid_pc4             : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ifid_instruction     : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL ifid_stall           : STD_LOGIC;
+    SIGNAL ifid_flush           : STD_LOGIC;
 
     -- ---------- ID Stage ----------
-    SIGNAL id_ctrl_RegDst   : STD_LOGIC;
-    SIGNAL id_ctrl_ALUSrc   : STD_LOGIC;
-    SIGNAL id_ctrl_MemtoReg : STD_LOGIC;
-    SIGNAL id_ctrl_RegWrite : STD_LOGIC;
-    SIGNAL id_ctrl_MemRead  : STD_LOGIC;
-    SIGNAL id_ctrl_MemWrite : STD_LOGIC;
-    SIGNAL id_ctrl_Branch   : STD_LOGIC;
-    SIGNAL id_ctrl_Jump     : STD_LOGIC;
-    SIGNAL id_ctrl_ALUOp    : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL id_ctrl_RegDst       : STD_LOGIC;
+    SIGNAL id_ctrl_ALUSrc       : STD_LOGIC;
+    SIGNAL id_ctrl_MemtoReg     : STD_LOGIC;
+    SIGNAL id_ctrl_RegWrite     : STD_LOGIC;
+    SIGNAL id_ctrl_MemRead      : STD_LOGIC;
+    SIGNAL id_ctrl_MemWrite     : STD_LOGIC;
+    SIGNAL id_ctrl_Branch       : STD_LOGIC;
+    SIGNAL id_ctrl_Jump         : STD_LOGIC;
+    SIGNAL id_ctrl_ALUOp        : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL id_read_data1        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL id_read_data2        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL id_sign_ext          : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL id_jump_addr         : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL id_jump_taken        : STD_LOGIC;
 
-    SIGNAL id_read_data1    : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL id_read_data2    : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL id_sign_ext      : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    -- ---------- Hazard unit outputs ----------
+    SIGNAL haz_PCWrite          : STD_LOGIC;
+    SIGNAL haz_IFIDWrite        : STD_LOGIC;
+    SIGNAL haz_ctrl_flush       : STD_LOGIC;
 
-    -- Hazard unit outputs
-    SIGNAL haz_PCWrite      : STD_LOGIC;
-    SIGNAL haz_IFIDWrite    : STD_LOGIC;
-    SIGNAL haz_ctrl_flush   : STD_LOGIC;
-
-    -- Control mux for stall (zero out controls on stall)
-    SIGNAL id_ctrl_RegDst_s   : STD_LOGIC;
-    SIGNAL id_ctrl_ALUSrc_s   : STD_LOGIC;
-    SIGNAL id_ctrl_MemtoReg_s : STD_LOGIC;
-    SIGNAL id_ctrl_RegWrite_s : STD_LOGIC;
-    SIGNAL id_ctrl_MemRead_s  : STD_LOGIC;
-    SIGNAL id_ctrl_MemWrite_s : STD_LOGIC;
-    SIGNAL id_ctrl_Branch_s   : STD_LOGIC;
-    SIGNAL id_ctrl_Jump_s     : STD_LOGIC;
-    SIGNAL id_ctrl_ALUOp_s    : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    -- ---------- Control signals after stall masking ----------
+    SIGNAL id_ctrl_RegDst_s     : STD_LOGIC;
+    SIGNAL id_ctrl_ALUSrc_s     : STD_LOGIC;
+    SIGNAL id_ctrl_MemtoReg_s   : STD_LOGIC;
+    SIGNAL id_ctrl_RegWrite_s   : STD_LOGIC;
+    SIGNAL id_ctrl_MemRead_s    : STD_LOGIC;
+    SIGNAL id_ctrl_MemWrite_s   : STD_LOGIC;
+    SIGNAL id_ctrl_Branch_s     : STD_LOGIC;
+    SIGNAL id_ctrl_Jump_s       : STD_LOGIC;
+    SIGNAL id_ctrl_ALUOp_s      : STD_LOGIC_VECTOR(1 DOWNTO 0);
 
     -- ---------- ID/EX Register outputs ----------
-    SIGNAL idex_ctrl_RegDst   : STD_LOGIC;
-    SIGNAL idex_ctrl_ALUSrc   : STD_LOGIC;
-    SIGNAL idex_ctrl_MemtoReg : STD_LOGIC;
-    SIGNAL idex_ctrl_RegWrite : STD_LOGIC;
-    SIGNAL idex_ctrl_MemRead  : STD_LOGIC;
-    SIGNAL idex_ctrl_MemWrite : STD_LOGIC;
-    SIGNAL idex_ctrl_Branch   : STD_LOGIC;
-    SIGNAL idex_ctrl_Jump     : STD_LOGIC;
-    SIGNAL idex_ctrl_ALUOp    : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL idex_ctrl_RegDst     : STD_LOGIC;
+    SIGNAL idex_ctrl_ALUSrc     : STD_LOGIC;
+    SIGNAL idex_ctrl_MemtoReg   : STD_LOGIC;
+    SIGNAL idex_ctrl_RegWrite   : STD_LOGIC;
+    SIGNAL idex_ctrl_MemRead    : STD_LOGIC;
+    SIGNAL idex_ctrl_MemWrite   : STD_LOGIC;
+    SIGNAL idex_ctrl_Branch     : STD_LOGIC;
+    SIGNAL idex_ctrl_Jump       : STD_LOGIC;
+    SIGNAL idex_ctrl_ALUOp      : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL idex_pc4             : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL idex_read_data1      : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL idex_read_data2      : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL idex_sign_ext        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL idex_jump_addr       : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL idex_rs              : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL idex_rt              : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL idex_rd              : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL idex_funct           : STD_LOGIC_VECTOR(5 DOWNTO 0);
 
-    SIGNAL idex_pc4           : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL idex_read_data1    : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL idex_read_data2    : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL idex_sign_ext      : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL idex_rs            : STD_LOGIC_VECTOR(2 DOWNTO 0);
-    SIGNAL idex_rt            : STD_LOGIC_VECTOR(2 DOWNTO 0);
-    SIGNAL idex_rd            : STD_LOGIC_VECTOR(2 DOWNTO 0);
-    SIGNAL idex_funct         : STD_LOGIC_VECTOR(5 DOWNTO 0);
+    -- ---------- Pipeline instruction tracking ----------
+    SIGNAL idex_instruction     : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL exmem_instruction    : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL memwb_instruction    : STD_LOGIC_VECTOR(31 DOWNTO 0);
 
     -- ---------- EX Stage ----------
-    SIGNAL ex_alu_ctrl        : STD_LOGIC_VECTOR(2 DOWNTO 0);
-    SIGNAL ex_write_reg       : STD_LOGIC_VECTOR(2 DOWNTO 0);  -- RegDst mux output
-    SIGNAL ex_fwd_a           : STD_LOGIC_VECTOR(1 DOWNTO 0);
-    SIGNAL ex_fwd_b           : STD_LOGIC_VECTOR(1 DOWNTO 0);
-    SIGNAL ex_alu_a           : STD_LOGIC_VECTOR(7 DOWNTO 0);  -- after forwarding mux A
-    SIGNAL ex_alu_b_pre       : STD_LOGIC_VECTOR(7 DOWNTO 0);  -- after forwarding mux B
-    SIGNAL ex_alu_b           : STD_LOGIC_VECTOR(7 DOWNTO 0);  -- after ALUSrc mux
-    SIGNAL ex_alu_result      : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL ex_zero            : STD_LOGIC;
-    SIGNAL ex_branch_offset   : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL ex_branch_target   : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL ex_jump_addr       : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL ex_carry_branch    : STD_LOGIC;
+    SIGNAL ex_alu_ctrl          : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL ex_write_reg         : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL ex_fwd_a             : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL ex_fwd_b             : STD_LOGIC_VECTOR(1 DOWNTO 0);
+    SIGNAL ex_alu_a             : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_alu_b_pre         : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_alu_b             : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_alu_result        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_zero              : STD_LOGIC;
+    SIGNAL ex_branch_offset     : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_branch_target     : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ex_carry_branch      : STD_LOGIC;
 
-    -- WB data needed for forwarding mux in EX
-    SIGNAL wb_write_data      : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    -- ---------- WB write data (used in forwarding) ----------
+    SIGNAL wb_write_data        : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
     -- ---------- EX/MEM Register outputs ----------
-    SIGNAL exmem_ctrl_MemtoReg   : STD_LOGIC;
-    SIGNAL exmem_ctrl_RegWrite   : STD_LOGIC;
-    SIGNAL exmem_ctrl_MemRead    : STD_LOGIC;
-    SIGNAL exmem_ctrl_MemWrite   : STD_LOGIC;
-    SIGNAL exmem_ctrl_Branch     : STD_LOGIC;
-    SIGNAL exmem_ctrl_Jump       : STD_LOGIC;
-    SIGNAL exmem_branch_target   : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL exmem_jump_addr       : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL exmem_zero            : STD_LOGIC;
-    SIGNAL exmem_alu_result      : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL exmem_read_data2      : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL exmem_write_reg       : STD_LOGIC_VECTOR(2 DOWNTO 0);
+    SIGNAL exmem_ctrl_MemtoReg  : STD_LOGIC;
+    SIGNAL exmem_ctrl_RegWrite  : STD_LOGIC;
+    SIGNAL exmem_ctrl_MemRead   : STD_LOGIC;
+    SIGNAL exmem_ctrl_MemWrite  : STD_LOGIC;
+    SIGNAL exmem_ctrl_Branch    : STD_LOGIC;
+    SIGNAL exmem_ctrl_Jump      : STD_LOGIC;
+    SIGNAL exmem_branch_target  : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL exmem_jump_addr      : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL exmem_zero           : STD_LOGIC;
+    SIGNAL exmem_alu_result     : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL exmem_read_data2     : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL exmem_write_reg      : STD_LOGIC_VECTOR(2 DOWNTO 0);
 
     -- ---------- MEM Stage ----------
-    SIGNAL mem_read_data         : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL mem_take_branch       : STD_LOGIC;
-    SIGNAL mem_pc_branch_or_seq  : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL mem_notCLK            : STD_LOGIC;
+    SIGNAL mem_read_data        : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL mem_take_branch      : STD_LOGIC;
+    SIGNAL pipeline_flush       : STD_LOGIC;
 
     -- ---------- MEM/WB Register outputs ----------
     SIGNAL memwb_ctrl_MemtoReg  : STD_LOGIC;
@@ -392,9 +395,6 @@ ARCHITECTURE structural OF LAB3 IS
     SIGNAL memwb_mem_read_data  : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL memwb_alu_result     : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL memwb_write_reg      : STD_LOGIC_VECTOR(2 DOWNTO 0);
-
-    -- ---------- PC stall mux ----------
-    SIGNAL pc_held              : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
     -- ---------- Output mux signals ----------
     SIGNAL ctrl_info            : STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -404,35 +404,27 @@ ARCHITECTURE structural OF LAB3 IS
     SIGNAL mux_s2_0123          : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL mux_s2_4567          : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
-    -- ---------- Instruction select mux ----------
-    SIGNAL instr_zeros          : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL idex_instruction     : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL exmem_instruction    : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL memwb_instruction    : STD_LOGIC_VECTOR(31 DOWNTO 0);
-
 BEGIN
 
     -- ==========================================================
     -- IF STAGE: Instruction Fetch
     -- ==========================================================
 
-    mem_notCLK <= NOT GClock;
+    -- Jump resolved in ID stage
+    id_jump_taken <= id_ctrl_Jump_s;  
 
-    -- PC register with stall capability
-    -- When stall: hold PC (feed back pc_current through mux)
+    -- pipeline_flush: branch (MEM stage) OR jump (ID stage)
+    pipeline_flush <= mem_take_branch OR id_jump_taken;
+
+    -- PC hold mux: on stall keep current PC, otherwise advance
     U_PC_HOLD_MUX : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
-            i_sel => haz_PCWrite,     -- '1' = update, '0' = hold (active low enable)
-            i_d0  => if_pc_current,   -- hold (sel=0 means stall, so keep current)
-            i_d1  => if_pc_final,     -- normal next PC
+            i_sel => haz_PCWrite,
+            i_d0  => if_pc_current,
+            i_d1  => if_pc_final,
             o_q   => pc_held
         );
-
-    -- Note: haz_PCWrite = '1' means no hazard (normal), '0' means stall
-    -- We invert logic: when PCWrite='0', feed pc_current back; when '1', feed pc_final
-    -- The mux above: sel='1' => normal (pc_final), sel='0' => stall (pc_current)
-    -- This is correct since PCWrite='1' = normal operation
 
     U_PC : pc_reg
         PORT MAP(
@@ -446,7 +438,7 @@ BEGIN
         GENERIC MAP(n => 8)
         PORT MAP(
             i_A        => if_pc_current,
-            i_Bi       => x"04",
+            i_Bi       => x"01",
             i_OpFlag   => '0',
             o_CarryOut => if_carry_pc4,
             o_Sum      => if_pc_plus4
@@ -463,9 +455,8 @@ BEGIN
     -- IF/ID PIPELINE REGISTER
     -- ==========================================================
 
-    -- Flush IF/ID when branch is taken (resolved in MEM stage)
-    ifid_flush <= mem_take_branch OR exmem_ctrl_Jump;
-    ifid_stall <= NOT haz_IFIDWrite;   -- stall = hold register
+    ifid_flush <= pipeline_flush;
+    ifid_stall <= NOT haz_IFIDWrite;
 
     U_IFID : IFID_reg
         PORT MAP(
@@ -510,16 +501,16 @@ BEGIN
         );
 
     -- On stall: zero all control signals entering ID/EX (insert NOP bubble)
-    id_ctrl_RegDst_s   <= id_ctrl_RegDst   AND (NOT haz_ctrl_flush);
-    id_ctrl_ALUSrc_s   <= id_ctrl_ALUSrc   AND (NOT haz_ctrl_flush);
-    id_ctrl_MemtoReg_s <= id_ctrl_MemtoReg AND (NOT haz_ctrl_flush);
-    id_ctrl_RegWrite_s <= id_ctrl_RegWrite AND (NOT haz_ctrl_flush);
-    id_ctrl_MemRead_s  <= id_ctrl_MemRead  AND (NOT haz_ctrl_flush);
-    id_ctrl_MemWrite_s <= id_ctrl_MemWrite AND (NOT haz_ctrl_flush);
-    id_ctrl_Branch_s   <= id_ctrl_Branch   AND (NOT haz_ctrl_flush);
-    id_ctrl_Jump_s     <= id_ctrl_Jump     AND (NOT haz_ctrl_flush);
-    id_ctrl_ALUOp_s(0) <= id_ctrl_ALUOp(0) AND (NOT haz_ctrl_flush);
-    id_ctrl_ALUOp_s(1) <= id_ctrl_ALUOp(1) AND (NOT haz_ctrl_flush);
+    id_ctrl_RegDst_s    <= id_ctrl_RegDst   AND (NOT haz_ctrl_flush);
+    id_ctrl_ALUSrc_s    <= id_ctrl_ALUSrc   AND (NOT haz_ctrl_flush);
+    id_ctrl_MemtoReg_s  <= id_ctrl_MemtoReg AND (NOT haz_ctrl_flush);
+    id_ctrl_RegWrite_s  <= id_ctrl_RegWrite AND (NOT haz_ctrl_flush);
+    id_ctrl_MemRead_s   <= id_ctrl_MemRead  AND (NOT haz_ctrl_flush);
+    id_ctrl_MemWrite_s  <= id_ctrl_MemWrite AND (NOT haz_ctrl_flush);
+    id_ctrl_Branch_s    <= id_ctrl_Branch   AND (NOT haz_ctrl_flush);
+    id_ctrl_Jump_s      <= id_ctrl_Jump     AND (NOT haz_ctrl_flush);
+    id_ctrl_ALUOp_s(0)  <= id_ctrl_ALUOp(0) AND (NOT haz_ctrl_flush);
+    id_ctrl_ALUOp_s(1)  <= id_ctrl_ALUOp(1) AND (NOT haz_ctrl_flush);
 
     U_REGFILE : register_file
         PORT MAP(
@@ -540,15 +531,21 @@ BEGIN
             o => id_sign_ext
         );
 
+    -- Jump address taken from lower 8 bits of instruction in ID stage
+    id_jump_addr <= ifid_instruction(7 DOWNTO 0);
+
     -- ==========================================================
     -- ID/EX PIPELINE REGISTER
     -- ==========================================================
+
+    -- Track instruction word through pipeline for InstrSelect output
+    idex_instruction <= ifid_instruction;
 
     U_IDEX : IDEX_reg
         PORT MAP(
             i_clock      => GClock,
             i_reset      => GReset,
-            i_flush      => '0',           -- hazard flush handled by zeroing controls above
+            i_flush      => pipeline_flush,
             i_RegDst     => id_ctrl_RegDst_s,
             i_ALUSrc     => id_ctrl_ALUSrc_s,
             i_MemtoReg   => id_ctrl_MemtoReg_s,
@@ -562,6 +559,7 @@ BEGIN
             i_ReadData1  => id_read_data1,
             i_ReadData2  => id_read_data2,
             i_SignExt    => id_sign_ext,
+            i_JumpAddr   => id_jump_addr,
             i_rs         => ifid_instruction(23 DOWNTO 21),
             i_rt         => ifid_instruction(18 DOWNTO 16),
             i_rd         => ifid_instruction(13 DOWNTO 11),
@@ -579,6 +577,7 @@ BEGIN
             o_ReadData1  => idex_read_data1,
             o_ReadData2  => idex_read_data2,
             o_SignExt    => idex_sign_ext,
+            o_JumpAddr   => idex_jump_addr,
             o_rs         => idex_rs,
             o_rt         => idex_rt,
             o_rd         => idex_rd,
@@ -602,34 +601,33 @@ BEGIN
             ForwardB       => ex_fwd_b
         );
 
-    -- Forwarding Mux A: select ALU input A
-    -- 00=ID/EX ReadData1, 01=MEM/WB write data, 10=EX/MEM ALU result
+    -- Forwarding Mux A: select ALU operand A
     U_MUX_FWDA : nBitMux4to1
         GENERIC MAP(n => 8)
         PORT MAP(
             s0 => ex_fwd_a(0),
             s1 => ex_fwd_a(1),
-            x0 => idex_read_data1,   -- 00: no forwarding
-            x1 => wb_write_data,     -- 01: MEM/WB
-            x2 => exmem_alu_result,  -- 10: EX/MEM
-            x3 => exmem_alu_result,  -- 11: (unused, same as 10)
+            x0 => idex_read_data1,
+            x1 => wb_write_data,
+            x2 => exmem_alu_result,
+            x3 => exmem_alu_result,
             y  => ex_alu_a
         );
 
-    -- Forwarding Mux B: select ALU input B (before ALUSrc mux)
+    -- Forwarding Mux B: select ALU operand B (before ALUSrc mux)
     U_MUX_FWDB : nBitMux4to1
         GENERIC MAP(n => 8)
         PORT MAP(
             s0 => ex_fwd_b(0),
             s1 => ex_fwd_b(1),
-            x0 => idex_read_data2,   -- 00: no forwarding
-            x1 => wb_write_data,     -- 01: MEM/WB
-            x2 => exmem_alu_result,  -- 10: EX/MEM
-            x3 => exmem_alu_result,  -- 11: (unused)
+            x0 => idex_read_data2,
+            x1 => wb_write_data,
+            x2 => exmem_alu_result,
+            x3 => exmem_alu_result,
             y  => ex_alu_b_pre
         );
 
-    -- ALUSrc mux: '0'=register, '1'=sign-extended immediate
+    -- ALUSrc mux: register value or sign-extended immediate
     U_MUX_ALUSRC : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -658,7 +656,7 @@ BEGIN
             o_Zero       => ex_zero
         );
 
-    -- RegDst mux: '0'=rt (I-type), '1'=rd (R-type)
+    -- RegDst mux: write to rt (I-type) or rd (R-type)
     U_MUX_REGDST : nBitMux2to1
         GENERIC MAP(n => 3)
         PORT MAP(
@@ -669,7 +667,6 @@ BEGIN
         );
 
     -- Branch target = PC+4 + (sign_ext << 2)
-    -- shift left 2 = multiply offset by 4
     ex_branch_offset(0) <= '0';
     ex_branch_offset(1) <= '0';
     ex_branch_offset(2) <= idex_sign_ext(0);
@@ -689,25 +686,18 @@ BEGIN
             o_Sum      => ex_branch_target
         );
 
-    -- Jump address from instruction[5:0] shifted left 2
-    ex_jump_addr(0) <= '0';
-    ex_jump_addr(1) <= '0';
-    ex_jump_addr(2) <= ifid_instruction(0);
-    ex_jump_addr(3) <= ifid_instruction(1);
-    ex_jump_addr(4) <= ifid_instruction(2);
-    ex_jump_addr(5) <= ifid_instruction(3);
-    ex_jump_addr(6) <= ifid_instruction(4);
-    ex_jump_addr(7) <= ifid_instruction(5);
-
     -- ==========================================================
     -- EX/MEM PIPELINE REGISTER
     -- ==========================================================
+
+    -- Track instruction word through pipeline for InstrSelect output
+    exmem_instruction <= idex_instruction;
 
     U_EXMEM : EXMEM_reg
         PORT MAP(
             i_clock        => GClock,
             i_reset        => GReset,
-            i_flush        => '0',
+            i_flush        => mem_take_branch,
             i_MemtoReg     => idex_ctrl_MemtoReg,
             i_RegWrite     => idex_ctrl_RegWrite,
             i_MemRead      => idex_ctrl_MemRead,
@@ -715,10 +705,10 @@ BEGIN
             i_Branch       => idex_ctrl_Branch,
             i_Jump         => idex_ctrl_Jump,
             i_BranchTarget => ex_branch_target,
-            i_JumpAddr     => ex_jump_addr,
+            i_JumpAddr     => idex_jump_addr,
             i_Zero         => ex_zero,
             i_ALUResult    => ex_alu_result,
-            i_ReadData2    => ex_alu_b_pre,   -- forwarded value for sw
+            i_ReadData2    => ex_alu_b_pre,
             i_WriteReg     => ex_write_reg,
             o_MemtoReg     => exmem_ctrl_MemtoReg,
             o_RegWrite     => exmem_ctrl_RegWrite,
@@ -738,20 +728,19 @@ BEGIN
     -- MEM STAGE: Memory Access
     -- ==========================================================
 
-    -- Branch resolution
+    -- Branch resolution: branch taken when Branch=1 and Zero=1
     mem_take_branch <= exmem_ctrl_Branch AND exmem_zero;
 
     U_DMEM : data_memory
         PORT MAP(
             address => exmem_alu_result,
-            clock   => mem_notCLK,
+            clock   => not GClock,
             data    => exmem_read_data2,
             wren    => exmem_ctrl_MemWrite,
             q       => mem_read_data
         );
 
-    -- PC next selection:
-    -- First: branch vs sequential
+    -- PC next: branch target or sequential
     U_MUX_BRANCH : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -761,19 +750,22 @@ BEGIN
             o_q   => if_pc_branch_or_seq
         );
 
-    -- Then: jump vs branch/sequential
+    -- PC next: jump (resolved in ID) overrides branch/sequential
     U_MUX_JUMP : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
-            i_sel => exmem_ctrl_Jump,
+            i_sel => id_jump_taken,
             i_d0  => if_pc_branch_or_seq,
-            i_d1  => exmem_jump_addr,
+            i_d1  => id_jump_addr,
             o_q   => if_pc_final
         );
 
     -- ==========================================================
     -- MEM/WB PIPELINE REGISTER
     -- ==========================================================
+
+    -- Track instruction word through pipeline for InstrSelect output
+    memwb_instruction <= exmem_instruction;
 
     U_MEMWB : MEMWB_reg
         PORT MAP(
@@ -795,7 +787,7 @@ BEGIN
     -- WB STAGE: Write Back
     -- ==========================================================
 
-    -- MemtoReg mux: '0'=ALU result, '1'=memory read data
+    -- MemtoReg mux: ALU result or memory read data
     U_MUX_MEMTOREG : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -805,36 +797,31 @@ BEGIN
             o_q   => wb_write_data
         );
 
-    -- wb_write_data feeds back to register file and forwarding muxes
-
     -- ==========================================================
-    -- INSTRUCTION SELECT OUTPUT (InstrSelect)
-    -- Shows which instruction is in each pipeline stage
+    -- INSTRUCTION SELECT OUTPUT (Table 3)
+    -- 000=IF, 001=IF/ID, 010=ID/EX, 011=EX/MEM, 100=MEM/WB
     -- ==========================================================
 
-    instr_zeros <= (OTHERS => '0');
-
-    -- For simplicity we show:
-    --   000 = IF stage  (if_instruction)
-    --   001 = ID stage  (ifid_instruction)
-    --   010 = EX stage  (need to store - use idex reconstruction)
-    --   011 = MEM stage
-    --   100 = WB stage
-    -- We use a simple 8-to-1 mux on 32-bit words using the 3-bit InstrSelect
-
-    PROCESS(InstrSelect, if_instruction, ifid_instruction, instr_zeros)
+    PROCESS(InstrSelect, if_instruction, ifid_instruction,
+            idex_instruction, exmem_instruction, memwb_instruction)
     BEGIN
         CASE InstrSelect IS
             WHEN "000"  => InstructionOut <= if_instruction;
             WHEN "001"  => InstructionOut <= ifid_instruction;
-            WHEN OTHERS => InstructionOut <= instr_zeros;
+            WHEN "010"  => InstructionOut <= idex_instruction;
+            WHEN "011"  => InstructionOut <= exmem_instruction;
+            WHEN "100"  => InstructionOut <= memwb_instruction;
+            WHEN OTHERS => InstructionOut <= (OTHERS => '0');
         END CASE;
     END PROCESS;
 
     -- ==========================================================
-    -- OUTPUT MULTIPLEXER (ValueSelect -> MuxOut)
+    -- OUTPUT MULTIPLEXER (Table 2)
+    -- 000=PC, 001=ALUResult, 010=ReadData1, 011=ReadData2,
+    -- 100=WriteData, Other=ctrl_info
     -- ==========================================================
 
+    -- Control info word as defined in Table 2
     ctrl_info(7) <= '0';
     ctrl_info(6) <= idex_ctrl_RegDst;
     ctrl_info(5) <= idex_ctrl_Jump;
@@ -844,15 +831,18 @@ BEGIN
     ctrl_info(1) <= idex_ctrl_ALUOp(0);
     ctrl_info(0) <= idex_ctrl_ALUSrc;
 
+    -- Level 1 muxes: select within pairs using ValueSelect(0)
+    -- 000 vs 001: PC vs ALUResult (live EX stage result)
     U_OMUX_01 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
             i_sel => ValueSelect(0),
             i_d0  => if_pc_current,
-            i_d1  => exmem_alu_result,
+            i_d1  => ex_alu_result,
             o_q   => mux_s1_01
         );
 
+    -- 010 vs 011: ReadData1 vs ReadData2
     U_OMUX_23 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -862,6 +852,7 @@ BEGIN
             o_q   => mux_s1_23
         );
 
+    -- 100 vs Other: WriteData vs ctrl_info
     U_OMUX_45 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -871,6 +862,8 @@ BEGIN
             o_q   => mux_s1_45
         );
 
+    -- Level 2 muxes: select between groups using ValueSelect(1)
+    -- 0xx group: between 000/001 and 010/011
     U_OMUX_0123 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -880,6 +873,7 @@ BEGIN
             o_q   => mux_s2_0123
         );
 
+    -- 1xx group: between 100/Other and ctrl_info
     U_OMUX_4567 : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(
@@ -889,6 +883,7 @@ BEGIN
             o_q   => mux_s2_4567
         );
 
+    -- Level 3: final selection using ValueSelect(2)
     U_OMUX_FINAL : nBitMux2to1
         GENERIC MAP(n => 8)
         PORT MAP(

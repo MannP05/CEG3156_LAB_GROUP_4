@@ -10,7 +10,7 @@ ENTITY EXMEM_reg IS
     PORT(
         i_clock        : IN  STD_LOGIC;
         i_reset        : IN  STD_LOGIC;
-        i_flush        : IN  STD_LOGIC;
+        i_flush        : IN  STD_LOGIC;  -- flush on stall or branch
         -- Control in
         i_MemtoReg     : IN  STD_LOGIC;
         i_RegWrite     : IN  STD_LOGIC;
@@ -38,7 +38,9 @@ ENTITY EXMEM_reg IS
         o_Zero         : OUT STD_LOGIC;
         o_ALUResult    : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         o_ReadData2    : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-        o_WriteReg     : OUT STD_LOGIC_VECTOR(2 DOWNTO 0)
+        o_WriteReg     : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+        i_instruction : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
+        o_instruction : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 END EXMEM_reg;
 
