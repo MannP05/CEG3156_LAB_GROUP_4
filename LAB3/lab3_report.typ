@@ -242,7 +242,7 @@ In the pipelined design, the clock period is determined by the slowest individua
 The slowest stages are IF and MEM at 200 ps each, giving:
 
 $ T_"clock" = 200 "ps" $
-$ f_"max" = 1 / (200 "ps") = 5 "GHz" $
+$ f_"max" = 1 / (200 "ps") = 200 "MHz" $
 
 
 === Gate-Level Delay of the 8-Bit Ripple-Carry Adder
