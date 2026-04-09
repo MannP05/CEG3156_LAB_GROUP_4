@@ -438,7 +438,7 @@ BEGIN
         GENERIC MAP(n => 8)
         PORT MAP(
             i_A        => if_pc_current,
-            i_Bi       => x"04",
+            i_Bi       => x"01",
             i_OpFlag   => '0',
             o_CarryOut => if_carry_pc4,
             o_Sum      => if_pc_plus4
